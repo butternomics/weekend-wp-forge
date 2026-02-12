@@ -1,0 +1,759 @@
+/*
+Theme Name: 404 Day Weekend
+Theme URI: https://404day.com
+Author: 404 Day Weekend Team
+Author URI: https://404day.com
+Description: Custom WordPress theme for 404 Day Weekend - A celebration of Atlanta's culture, creativity, and community. Features custom post types for events, mobile-optimized design, and easy content management for novice users.
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.7
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: 404-day-weekend
+Tags: custom-menu, featured-images, custom-post-type, responsive-design, events
+*/
+
+/* ===================================
+   CSS Variables (Design System)
+   =================================== */
+:root {
+  /* Colors - Primary Palette */
+  --color-primary: #1B3B36; /* Dark Green */
+  --color-secondary: #D4B982; /* Gold */
+  --color-background: #FFFFFF; /* White */
+  --color-foreground: #1B3B36;
+
+  /* Grayscale */
+  --color-muted: #F0F2F1;
+  --color-muted-foreground: #5A6765;
+  --color-border: #E0E4E3;
+
+  /* Semantic Colors */
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1B3B36;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Border Radius */
+  --radius: 0;
+}
+
+/* ===================================
+   Reset & Base Styles
+   =================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ===================================
+   Typography
+   =================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 5rem);
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+h4 {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+/* ===================================
+   Layout
+   =================================== */
+.site-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-main {
+  flex: 1;
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.container-narrow {
+  max-width: 960px;
+}
+
+.container-wide {
+  max-width: 1440px;
+}
+
+/* ===================================
+   Header & Navigation
+   =================================== */
+.site-header {
+  background-color: var(--color-primary);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.site-logo img {
+  height: 3rem;
+  width: auto;
+}
+
+@media (min-width: 768px) {
+  .site-logo img {
+    height: 4rem;
+  }
+}
+
+.main-navigation {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .main-navigation {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+.main-navigation a {
+  color: var(--color-secondary);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color 0.2s;
+}
+
+.main-navigation a:hover {
+  color: #FFFFFF;
+}
+
+.cta-button {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background-color 0.2s;
+}
+
+.cta-button:hover {
+  background-color: #FFFFFF;
+}
+
+.mobile-menu-toggle {
+  color: var(--color-secondary);
+  font-size: 1.75rem;
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+}
+
+.mobile-navigation {
+  background-color: var(--color-primary);
+  border-top: 1px solid rgba(212, 185, 130, 0.2);
+  padding: 0 1rem 1.5rem;
+}
+
+.mobile-navigation a {
+  display: block;
+  padding: 0.75rem 0;
+  color: var(--color-secondary);
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid rgba(212, 185, 130, 0.1);
+  transition: color 0.2s;
+}
+
+.mobile-navigation a:hover {
+  color: #FFFFFF;
+}
+
+.mobile-navigation .cta-button {
+  display: block;
+  margin-top: 1rem;
+  text-align: center;
+  padding: 0.75rem 1.25rem;
+  font-size: 1.125rem;
+}
+
+/* ===================================
+   Footer
+   =================================== */
+.site-footer {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  padding: 4rem 1rem;
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .footer-inner {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.footer-section h4 {
+  color: var(--color-secondary);
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+}
+
+.footer-section p {
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+.footer-section a {
+  color: rgba(212, 185, 130, 0.8);
+  transition: color 0.2s;
+}
+
+.footer-section a:hover {
+  color: var(--color-secondary);
+}
+
+.footer-logo img {
+  width: 8rem;
+  margin-bottom: 1.5rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.social-links a {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: background-color 0.2s;
+}
+
+.social-links a:hover {
+  background-color: #FFFFFF;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer-bottom {
+  max-width: 1280px;
+  margin: 4rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(212, 185, 130, 0.1);
+  text-align: center;
+  opacity: 0.5;
+  font-size: 0.875rem;
+}
+
+/* ===================================
+   Hero Section
+   =================================== */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: 0;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(27, 59, 54, 0.4), rgba(240, 242, 241, 0.6), rgba(240, 242, 241, 0.8));
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 5rem 1rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.hero-logo img {
+  width: clamp(12rem, 40vw, 20rem);
+  margin: 0 auto 2rem;
+  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.15));
+}
+
+.hero-title {
+  font-size: clamp(3rem, 8vw, 5rem);
+  line-height: 0.9;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 4px 3px rgba(0, 0, 0, 0.07));
+}
+
+.hero-subtitle {
+  font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+  color: rgba(27, 59, 54, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.hero-date {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 3rem;
+}
+
+.hero-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 48rem;
+  margin: 0 auto 1rem;
+}
+
+@media (min-width: 640px) {
+  .hero-actions {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.hero-actions-secondary {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 32rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .hero-actions-secondary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.hero-button {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  padding: 1rem 1.5rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  transition: all 0.2s;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.hero-button:hover {
+  background-color: rgba(27, 59, 54, 0.9);
+  transform: translateY(-2px);
+}
+
+/* ===================================
+   Sections
+   =================================== */
+.section {
+  padding: 5rem 1rem;
+}
+
+.section-muted {
+  background-color: rgba(240, 242, 241, 0.5);
+}
+
+.section-primary {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--color-muted-foreground);
+  max-width: 48rem;
+  margin: 0 auto;
+}
+
+.section-primary .section-subtitle {
+  color: rgba(212, 185, 130, 0.7);
+}
+
+/* ===================================
+   Event Cards
+   =================================== */
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .events-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .events-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.event-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-card:hover {
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+}
+
+.event-image {
+  overflow: hidden;
+}
+
+.event-image img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.5s;
+}
+
+.event-card:hover .event-image img {
+  transform: scale(1.05);
+}
+
+.event-content {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 0.5rem;
+}
+
+.event-title {
+  font-size: 1.125rem;
+  line-height: 1.2;
+}
+
+.event-time {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: rgba(27, 59, 54, 0.7);
+}
+
+.event-location {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--color-muted-foreground);
+  letter-spacing: 0.05em;
+}
+
+.event-description {
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.event-button {
+  display: inline-block;
+  margin-top: 0.75rem;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.event-button:hover {
+  background-color: rgba(27, 59, 54, 0.9);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+}
+
+.event-button-disabled {
+  background-color: var(--color-muted);
+  color: var(--color-muted-foreground);
+  cursor: default;
+}
+
+.event-button-disabled:hover {
+  background-color: var(--color-muted);
+  box-shadow: none;
+}
+
+/* ===================================
+   Blog / Posts
+   =================================== */
+.blog-grid {
+  display: grid;
+  gap: 3rem;
+  max-width: 64rem;
+  margin: 0 auto;
+}
+
+.blog-post {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 3rem;
+}
+
+.blog-meta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-category {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.blog-date {
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground);
+}
+
+.blog-title {
+  margin-bottom: 0.75rem;
+  transition: color 0.2s;
+}
+
+.blog-post:hover .blog-title {
+  color: rgba(27, 59, 54, 0.7);
+}
+
+.blog-excerpt {
+  font-size: 1.125rem;
+  color: var(--color-muted-foreground);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.blog-read-more {
+  display: inline-block;
+  color: var(--color-primary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+  border-bottom: 2px solid var(--color-secondary);
+  transition: color 0.2s;
+}
+
+.blog-read-more:hover {
+  color: var(--color-secondary);
+}
+
+/* ===================================
+   Page Header
+   =================================== */
+.page-header {
+  background-color: var(--color-muted);
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.page-header-title {
+  margin-bottom: 0.5rem;
+}
+
+.page-header-subtitle {
+  font-size: 1.125rem;
+  color: var(--color-muted-foreground);
+  text-transform: none;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+/* ===================================
+   Utility Classes
+   =================================== */
+.text-center {
+  text-align: center;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.font-black {
+  font-weight: 900;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ===================================
+   WordPress Core Styles
+   =================================== */
+.alignleft {
+  float: left;
+  margin: 0.5rem 1.5rem 1rem 0;
+}
+
+.alignright {
+  float: right;
+  margin: 0.5rem 0 1rem 1.5rem;
+}
+
+.aligncenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wp-caption {
+  max-width: 100%;
+}
+
+.wp-caption-text {
+  font-size: 0.875rem;
+  color: var(--color-muted-foreground);
+  margin-top: 0.5rem;
+}
+
+.screen-reader-text {
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
