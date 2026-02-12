@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
+import PageHeader from '@/components/PageHeader';
 import Footer from '@/components/Footer';
 
 const blogPosts = [
@@ -38,10 +39,7 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <header className="bg-primary text-secondary py-16 px-4 text-center">
-        <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight">Blog</h1>
-        <p className="text-lg md:text-xl mt-4 text-secondary/80 uppercase tracking-widest">Stories, News & Updates</p>
-      </header>
+      <PageHeader title="Blog" subtitle="Stories, News & Updates" />
 
       <main className="max-w-4xl mx-auto py-16 px-4">
         <div className="space-y-12">

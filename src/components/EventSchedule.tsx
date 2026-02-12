@@ -78,7 +78,7 @@ const EventSchedule = () => {
           Get ready for a weekend full of celebration, culture, and connection! Whether you're joining us for the 404 Day Gala, walking in the 404 Day Parade, or enjoying the local events, this is Atlanta's moment to shine.
         </p>
 
-        <div className="space-y-16">
+        <div className="space-y-10">
           {events.map((event, index) => (
             <motion.div
               key={index}
@@ -86,10 +86,10 @@ const EventSchedule = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-12 items-center`}
+              className="flex flex-col md:flex-row gap-6 md:gap-10 items-center"
             >
-              {/* Icon */}
-              <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0 flex items-center justify-center">
+              {/* Icon - always on the left */}
+              <div className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0 flex items-center justify-center">
                 <img src={event.icon} alt={event.title} className="w-full h-full object-contain" />
               </div>
 
