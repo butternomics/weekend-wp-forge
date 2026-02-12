@@ -1,26 +1,33 @@
 import React from 'react';
 import partnerLogos from '@/assets/partner-logos.png';
+import sponsorShowcase from '@/assets/sponsor-showcase-atlanta.jpg';
+import sponsorBeltline from '@/assets/sponsor-beltline.jpg';
+import sponsorGrady from '@/assets/sponsor-grady.jpg';
 
-// To add a new sponsor, simply add an object with src (imported image) and alt text.
-// Example:
-// import sponsorLogo from '@/assets/sponsor-name.png';
-// Then add { src: sponsorLogo, alt: 'Sponsor Name', href: 'https://...' } to the array.
+// To add a new sponsor logo:
+// 1. Import the image: import sponsorName from '@/assets/sponsor-name.png';
+// 2. Add to the sponsors array below: { src: sponsorName, alt: 'Sponsor Name', href: 'https://...' }
+// Logos auto-space and wrap cleanly on all screen sizes.
 
 const sponsors: { src: string; alt: string; href?: string }[] = [
-  // Add individual sponsor logos here as you get them.
-  // { src: sponsorLogo, alt: 'Sponsor Name', href: 'https://sponsor.com' },
+  { src: sponsorShowcase, alt: 'Showcase Atlanta' },
+  { src: sponsorBeltline, alt: 'Atlanta Beltline' },
+  { src: sponsorGrady, alt: 'Grady Health' },
 ];
 
 const SponsorLogos = () => {
   return (
     <section className="w-full bg-muted py-16 px-4">
       <div className="max-w-6xl mx-auto">
-        <h3 className="text-center text-sm font-bold uppercase tracking-[0.3em] text-muted-foreground mb-10">
-          Our Partners & Sponsors
+        <h3 className="text-center text-xl md:text-2xl font-black uppercase tracking-wider text-primary mb-3">
+          Thank You to Our Partners & Sponsors
         </h3>
+        <p className="text-center text-sm text-muted-foreground mb-10">
+          404 Day Weekend is made possible by the support of these incredible organizations.
+        </p>
 
         {/* Main partner banner */}
-        <div className="flex items-center justify-center mb-10">
+        <div className="flex items-center justify-center mb-12">
           <img
             src={partnerLogos}
             alt="Partners: Atlanta Influences Everything, Butter ATL, Finish First, Trap Music Museum"
@@ -28,9 +35,9 @@ const SponsorLogos = () => {
           />
         </div>
 
-        {/* Individual sponsor logo grid - auto-spaces and wraps cleanly */}
+        {/* Individual sponsor logo grid */}
         {sponsors.length > 0 && (
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-14">
             {sponsors.map((sponsor, i) => (
               <div key={i} className="flex-shrink-0">
                 {sponsor.href ? (
@@ -38,14 +45,14 @@ const SponsorLogos = () => {
                     <img
                       src={sponsor.src}
                       alt={sponsor.alt}
-                      className="h-12 md:h-16 w-auto max-w-[160px] object-contain opacity-80 hover:opacity-100 transition-opacity"
+                      className="h-14 md:h-20 w-auto max-w-[180px] object-contain opacity-80 hover:opacity-100 transition-opacity"
                     />
                   </a>
                 ) : (
                   <img
                     src={sponsor.src}
                     alt={sponsor.alt}
-                    className="h-12 md:h-16 w-auto max-w-[160px] object-contain opacity-80"
+                    className="h-14 md:h-20 w-auto max-w-[180px] object-contain opacity-80"
                   />
                 )}
               </div>

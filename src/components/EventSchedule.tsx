@@ -23,7 +23,7 @@ const events = [
     location: "Across Atlanta",
     description: "A citywide lineup of partner events and activations. Pull up to what's happening all across the city.",
     flyer: flyerTakeover,
-    buttonText: null,
+    buttonText: "COMING SOON",
     buttonLink: null,
   },
   {
@@ -88,12 +88,12 @@ const EventSchedule = () => {
               transition={{ delay: index * 0.08 }}
               className="group flex flex-col bg-card border border-border overflow-hidden shadow-md hover:shadow-xl transition-shadow"
             >
-              {/* Flyer Image */}
-              <div className="relative aspect-square overflow-hidden">
+              {/* Flyer Image - full graphic, no crop */}
+              <div className="overflow-hidden">
                 <img
                   src={event.flyer}
                   alt={event.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
 
@@ -105,15 +105,21 @@ const EventSchedule = () => {
                 <p className="text-sm font-bold text-primary/70">{event.time}</p>
                 <p className="text-xs text-muted-foreground uppercase tracking-wider">{event.location}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed flex-1">{event.description}</p>
-                {event.buttonText && event.buttonLink && (
-                  <a
-                    href={event.buttonLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block mt-3 bg-primary text-secondary px-6 py-2.5 text-sm font-bold uppercase tracking-wider hover:bg-primary/90 transition-all text-center shadow-md hover:shadow-lg"
-                  >
-                    {event.buttonText}
-                  </a>
+                {event.buttonText && (
+                  event.buttonLink ? (
+                    <a
+                      href={event.buttonLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block mt-3 bg-primary text-secondary px-6 py-2.5 text-sm font-bold uppercase tracking-wider hover:bg-primary/90 transition-all text-center shadow-md hover:shadow-lg"
+                    >
+                      {event.buttonText}
+                    </a>
+                  ) : (
+                    <span className="inline-block mt-3 bg-muted text-muted-foreground px-6 py-2.5 text-sm font-bold uppercase tracking-wider text-center cursor-default">
+                      {event.buttonText}
+                    </span>
+                  )
                 )}
               </div>
             </motion.div>

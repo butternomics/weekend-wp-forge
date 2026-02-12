@@ -10,6 +10,7 @@ const Navbar = () => {
     { label: 'Home', to: '/' },
     { label: 'Events', to: '/events' },
     { label: 'Parade', to: '/parade' },
+    { label: '404 Fund', to: '/404-fund' },
     { label: 'Blog', to: '/blog' },
     { label: 'Partner With Us', to: '/#contact' },
   ];
