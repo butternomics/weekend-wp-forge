@@ -230,16 +230,28 @@ Regular pages can be edited like any WordPress page:
 
 **Note**: If Customizer options aren't visible yet, you can edit them directly in the footer.php file or install the **Customizer** plugin.
 
-### Uploading New Images
+### ✅ All Images Are Already Included!
 
-To replace images (logos, hero background, etc.):
+**Important**: All 27 images are already included in the theme (11MB total). You don't need to upload anything! When you install the theme, you get:
+
+- ✅ All event flyer images (6 flyers)
+- ✅ All logos (main, 404 Fund, parade, partners)
+- ✅ Hero background image
+- ✅ Parade route map
+- ✅ All sponsor/partner logos
+- ✅ 404 Lager product image
+
+The theme is **completely ready to use** with all images in place.
+
+### Replacing Images (Optional)
+
+Only if you want to replace an existing image:
 
 1. Go to **Media → Library**
-2. Upload new images
-3. Make sure they have the **same filename** as the original
-4. WordPress will automatically use the new image
+2. Upload your new image with the **same filename**
+3. WordPress will automatically use the new image
 
-**Important Image Filenames**:
+**Key Image Filenames**:
 - `logo-main.png` - Main site logo
 - `hero-bg.jpg` - Homepage hero background
 - `logo-404fund.webp` - 404 Fund logo
@@ -301,7 +313,9 @@ To replace images (logos, hero background, etc.):
 
 ## 🎉 Quick Start Checklist
 
-- [ ] Theme installed and activated
+**Note**: All images are already included - no need to upload anything!
+
+- [ ] Theme installed and activated (all 27 images included automatically)
 - [ ] Permalinks set to "Post name"
 - [ ] Created Homepage (with Homepage template)
 - [ ] Created Events page (with Events Page template)
@@ -310,7 +324,7 @@ To replace images (logos, hero background, etc.):
 - [ ] Created Blog page
 - [ ] Set static front page in Settings → Reading
 - [ ] Created primary menu with all pages
-- [ ] Added at least 3-4 events
+- [ ] Added at least 3-4 events (can use existing flyer images!)
 - [ ] Created first blog post
 - [ ] Tested on mobile device
 
