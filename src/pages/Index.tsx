@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import PartnerLogos from "@/components/PartnerLogos";
+import SponsorLogos from "@/components/SponsorLogos";
 import EventSchedule from "@/components/EventSchedule";
 import ParadeSection from "@/components/ParadeSection";
 import FAQSection from "@/components/FAQSection";
@@ -12,7 +12,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
       <Hero />
-      <PartnerLogos />
+      <SponsorLogos />
       <EventSchedule />
       <ParadeSection />
       <FAQSection />

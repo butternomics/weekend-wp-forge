@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import PageHeader from '@/components/PageHeader';
 import EventSchedule from '@/components/EventSchedule';
+import SponsorLogos from '@/components/SponsorLogos';
 import Footer from '@/components/Footer';
 
 const Events = () => {
@@ -10,6 +11,7 @@ const Events = () => {
       <Navbar />
       <PageHeader title="Event Schedule" subtitle="April 1–5, 2026 • Atlanta, GA" />
       <EventSchedule />
+      <SponsorLogos />
       <Footer />
     </div>
   );
