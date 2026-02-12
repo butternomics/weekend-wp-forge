@@ -426,124 +426,55 @@ function four04_day_get_partner_events() {
 }
 
 /**
- * Register Custom Post Type: News Links
+ * Add Meta Box for External Link on Blog Posts
  */
-function four04_day_register_news_link_post_type() {
-    $labels = array(
-        'name'                  => _x('News Links', 'Post type general name', '404-day-weekend'),
-        'singular_name'         => _x('News Link', 'Post type singular name', '404-day-weekend'),
-        'menu_name'             => _x('News Links', 'Admin Menu text', '404-day-weekend'),
-        'add_new_item'          => __('Add New News Link', '404-day-weekend'),
-        'edit_item'             => __('Edit News Link', '404-day-weekend'),
-        'view_item'             => __('View News Link', '404-day-weekend'),
-        'all_items'             => __('All News Links', '404-day-weekend'),
-    );
-
-    $args = array(
-        'labels'             => $labels,
-        'public'             => true,
-        'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => true,
-        'query_var'          => true,
-        'rewrite'            => array('slug' => 'news'),
-        'capability_type'    => 'post',
-        'has_archive'        => false,
-        'hierarchical'       => false,
-        'menu_position'      => 7,
-        'menu_icon'          => 'dashicons-megaphone',
-        'supports'           => array('title', 'excerpt'),
-        'show_in_rest'       => true,
-    );
-
-    register_post_type('news_link', $args);
-}
-add_action('init', 'four04_day_register_news_link_post_type');
-
-/**
- * Add Meta Boxes for News Links
- */
-function four04_day_add_news_link_meta_boxes() {
+function four04_day_add_external_link_meta_box() {
     add_meta_box(
-        'news_link_details',
-        __('News Link Details', '404-day-weekend'),
-        'four04_day_news_link_details_callback',
-        'news_link',
-        'normal',
-        'high'
+        'post_external_link',
+        __('External Link', '404-day-weekend'),
+        'four04_day_external_link_callback',
+        'post',
+        'side',
+        'default'
     );
 }
-add_action('add_meta_boxes', 'four04_day_add_news_link_meta_boxes');
+add_action('add_meta_boxes', 'four04_day_add_external_link_meta_box');
 
 /**
- * News Link Details Meta Box Callback
+ * External Link Meta Box Callback
  */
-function four04_day_news_link_details_callback($post) {
-    wp_nonce_field('four04_day_save_news_link_details', 'four04_day_news_link_details_nonce');
+function four04_day_external_link_callback($post) {
+    wp_nonce_field('four04_day_save_external_link', 'four04_day_external_link_nonce');
 
-    $news_link_url = get_post_meta($post->ID, '_news_link_url', true);
-    $news_link_source = get_post_meta($post->ID, '_news_link_source', true);
-    $news_link_date = get_post_meta($post->ID, '_news_link_date', true);
+    $external_link = get_post_meta($post->ID, '_external_link', true);
 
     ?>
-    <div style="padding: 10px 0;">
-        <p style="margin-bottom: 20px; padding: 10px; background: #f0f8ff; border-left: 4px solid #0073aa;">
-            <strong>How it works:</strong> This creates a link to an external article/press coverage. The title is the headline, and clicking it will open the article URL.
-        </p>
+    <p style="margin: 0 0 10px 0; font-size: 12px; color: #666;">
+        For news/press posts that link to external articles. Leave blank for normal blog posts.
+    </p>
 
-        <p>
-            <label for="news_link_url" style="display: block; margin-bottom: 5px; font-weight: 600;">
-                <?php _e('Article URL (Required)', '404-day-weekend'); ?> <span style="color: red;">*</span>
-            </label>
-            <input type="url" id="news_link_url" name="news_link_url"
-                   value="<?php echo esc_url($news_link_url); ?>"
-                   style="width: 100%; padding: 8px;"
-                   placeholder="https://example.com/404-day-weekend-article"
-                   required />
-            <span style="display: block; margin-top: 5px; color: #666; font-size: 13px;">
-                The full URL to the external article
-            </span>
-        </p>
+    <p>
+        <label for="external_link" style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 13px;">
+            <?php _e('External Article URL', '404-day-weekend'); ?>
+        </label>
+        <input type="url" id="external_link" name="external_link"
+               value="<?php echo esc_url($external_link); ?>"
+               style="width: 100%; padding: 6px;"
+               placeholder="https://example.com/article" />
+    </p>
 
-        <p>
-            <label for="news_link_source" style="display: block; margin-bottom: 5px; font-weight: 600;">
-                <?php _e('Source/Publication Name', '404-day-weekend'); ?>
-            </label>
-            <input type="text" id="news_link_source" name="news_link_source"
-                   value="<?php echo esc_attr($news_link_source); ?>"
-                   style="width: 100%; padding: 8px;"
-                   placeholder="e.g., Atlanta Magazine, Creative Loafing, WSB-TV" />
-            <span style="display: block; margin-top: 5px; color: #666; font-size: 13px;">
-                The name of the publication or website
-            </span>
-        </p>
-
-        <p>
-            <label for="news_link_date" style="display: block; margin-bottom: 5px; font-weight: 600;">
-                <?php _e('Published Date', '404-day-weekend'); ?>
-            </label>
-            <input type="text" id="news_link_date" name="news_link_date"
-                   value="<?php echo esc_attr($news_link_date); ?>"
-                   style="width: 100%; padding: 8px;"
-                   placeholder="e.g., March 15, 2026" />
-            <span style="display: block; margin-top: 5px; color: #666; font-size: 13px;">
-                When the article was published
-            </span>
-        </p>
-
-        <p style="margin-top: 15px; padding: 10px; background: #fff9e6; border-left: 4px solid #f0b429;">
-            <strong>💡 Tip:</strong> Use the "Excerpt" box below to add a short quote or summary from the article (optional).
-        </p>
-    </div>
+    <p style="margin: 10px 0 0 0; font-size: 12px; color: #666;">
+        When set, clicking this post will open this URL instead.
+    </p>
     <?php
 }
 
 /**
- * Save News Link Meta Box Data
+ * Save External Link Meta Data
  */
-function four04_day_save_news_link_details($post_id) {
-    if (!isset($_POST['four04_day_news_link_details_nonce']) ||
-        !wp_verify_nonce($_POST['four04_day_news_link_details_nonce'], 'four04_day_save_news_link_details')) {
+function four04_day_save_external_link($post_id) {
+    if (!isset($_POST['four04_day_external_link_nonce']) ||
+        !wp_verify_nonce($_POST['four04_day_external_link_nonce'], 'four04_day_save_external_link')) {
         return;
     }
 
@@ -555,32 +486,39 @@ function four04_day_save_news_link_details($post_id) {
         return;
     }
 
-    if (isset($_POST['news_link_url'])) {
-        update_post_meta($post_id, '_news_link_url', esc_url_raw($_POST['news_link_url']));
-    }
-
-    if (isset($_POST['news_link_source'])) {
-        update_post_meta($post_id, '_news_link_source', sanitize_text_field($_POST['news_link_source']));
-    }
-
-    if (isset($_POST['news_link_date'])) {
-        update_post_meta($post_id, '_news_link_date', sanitize_text_field($_POST['news_link_date']));
+    if (isset($_POST['external_link'])) {
+        update_post_meta($post_id, '_external_link', esc_url_raw($_POST['external_link']));
     }
 }
-add_action('save_post_news_link', 'four04_day_save_news_link_details');
+add_action('save_post', 'four04_day_save_external_link');
 
 /**
- * Get all news links ordered by date
+ * Get the link for a post (external link if set, otherwise permalink)
  */
-function four04_day_get_news_links($limit = -1) {
-    $args = array(
-        'post_type' => 'news_link',
-        'posts_per_page' => $limit,
-        'orderby' => 'date',
-        'order' => 'DESC',
-    );
+function four04_day_get_post_link($post_id = null) {
+    if (!$post_id) {
+        $post_id = get_the_ID();
+    }
 
-    return new WP_Query($args);
+    $external_link = get_post_meta($post_id, '_external_link', true);
+
+    if ($external_link) {
+        return $external_link;
+    }
+
+    return get_permalink($post_id);
+}
+
+/**
+ * Check if post has external link
+ */
+function four04_day_has_external_link($post_id = null) {
+    if (!$post_id) {
+        $post_id = get_the_ID();
+    }
+
+    $external_link = get_post_meta($post_id, '_external_link', true);
+    return !empty($external_link);
 }
 
 /**
