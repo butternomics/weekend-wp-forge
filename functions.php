@@ -426,6 +426,164 @@ function four04_day_get_partner_events() {
 }
 
 /**
+ * Register Custom Post Type: News Links
+ */
+function four04_day_register_news_link_post_type() {
+    $labels = array(
+        'name'                  => _x('News Links', 'Post type general name', '404-day-weekend'),
+        'singular_name'         => _x('News Link', 'Post type singular name', '404-day-weekend'),
+        'menu_name'             => _x('News Links', 'Admin Menu text', '404-day-weekend'),
+        'add_new_item'          => __('Add New News Link', '404-day-weekend'),
+        'edit_item'             => __('Edit News Link', '404-day-weekend'),
+        'view_item'             => __('View News Link', '404-day-weekend'),
+        'all_items'             => __('All News Links', '404-day-weekend'),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'news'),
+        'capability_type'    => 'post',
+        'has_archive'        => false,
+        'hierarchical'       => false,
+        'menu_position'      => 7,
+        'menu_icon'          => 'dashicons-megaphone',
+        'supports'           => array('title', 'excerpt'),
+        'show_in_rest'       => true,
+    );
+
+    register_post_type('news_link', $args);
+}
+add_action('init', 'four04_day_register_news_link_post_type');
+
+/**
+ * Add Meta Boxes for News Links
+ */
+function four04_day_add_news_link_meta_boxes() {
+    add_meta_box(
+        'news_link_details',
+        __('News Link Details', '404-day-weekend'),
+        'four04_day_news_link_details_callback',
+        'news_link',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'four04_day_add_news_link_meta_boxes');
+
+/**
+ * News Link Details Meta Box Callback
+ */
+function four04_day_news_link_details_callback($post) {
+    wp_nonce_field('four04_day_save_news_link_details', 'four04_day_news_link_details_nonce');
+
+    $news_link_url = get_post_meta($post->ID, '_news_link_url', true);
+    $news_link_source = get_post_meta($post->ID, '_news_link_source', true);
+    $news_link_date = get_post_meta($post->ID, '_news_link_date', true);
+
+    ?>
+    <div style="padding: 10px 0;">
+        <p style="margin-bottom: 20px; padding: 10px; background: #f0f8ff; border-left: 4px solid #0073aa;">
+            <strong>How it works:</strong> This creates a link to an external article/press coverage. The title is the headline, and clicking it will open the article URL.
+        </p>
+
+        <p>
+            <label for="news_link_url" style="display: block; margin-bottom: 5px; font-weight: 600;">
+                <?php _e('Article URL (Required)', '404-day-weekend'); ?> <span style="color: red;">*</span>
+            </label>
+            <input type="url" id="news_link_url" name="news_link_url"
+                   value="<?php echo esc_url($news_link_url); ?>"
+                   style="width: 100%; padding: 8px;"
+                   placeholder="https://example.com/404-day-weekend-article"
+                   required />
+            <span style="display: block; margin-top: 5px; color: #666; font-size: 13px;">
+                The full URL to the external article
+            </span>
+        </p>
+
+        <p>
+            <label for="news_link_source" style="display: block; margin-bottom: 5px; font-weight: 600;">
+                <?php _e('Source/Publication Name', '404-day-weekend'); ?>
+            </label>
+            <input type="text" id="news_link_source" name="news_link_source"
+                   value="<?php echo esc_attr($news_link_source); ?>"
+                   style="width: 100%; padding: 8px;"
+                   placeholder="e.g., Atlanta Magazine, Creative Loafing, WSB-TV" />
+            <span style="display: block; margin-top: 5px; color: #666; font-size: 13px;">
+                The name of the publication or website
+            </span>
+        </p>
+
+        <p>
+            <label for="news_link_date" style="display: block; margin-bottom: 5px; font-weight: 600;">
+                <?php _e('Published Date', '404-day-weekend'); ?>
+            </label>
+            <input type="text" id="news_link_date" name="news_link_date"
+                   value="<?php echo esc_attr($news_link_date); ?>"
+                   style="width: 100%; padding: 8px;"
+                   placeholder="e.g., March 15, 2026" />
+            <span style="display: block; margin-top: 5px; color: #666; font-size: 13px;">
+                When the article was published
+            </span>
+        </p>
+
+        <p style="margin-top: 15px; padding: 10px; background: #fff9e6; border-left: 4px solid #f0b429;">
+            <strong>💡 Tip:</strong> Use the "Excerpt" box below to add a short quote or summary from the article (optional).
+        </p>
+    </div>
+    <?php
+}
+
+/**
+ * Save News Link Meta Box Data
+ */
+function four04_day_save_news_link_details($post_id) {
+    if (!isset($_POST['four04_day_news_link_details_nonce']) ||
+        !wp_verify_nonce($_POST['four04_day_news_link_details_nonce'], 'four04_day_save_news_link_details')) {
+        return;
+    }
+
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    if (isset($_POST['news_link_url'])) {
+        update_post_meta($post_id, '_news_link_url', esc_url_raw($_POST['news_link_url']));
+    }
+
+    if (isset($_POST['news_link_source'])) {
+        update_post_meta($post_id, '_news_link_source', sanitize_text_field($_POST['news_link_source']));
+    }
+
+    if (isset($_POST['news_link_date'])) {
+        update_post_meta($post_id, '_news_link_date', sanitize_text_field($_POST['news_link_date']));
+    }
+}
+add_action('save_post_news_link', 'four04_day_save_news_link_details');
+
+/**
+ * Get all news links ordered by date
+ */
+function four04_day_get_news_links($limit = -1) {
+    $args = array(
+        'post_type' => 'news_link',
+        'posts_per_page' => $limit,
+        'orderby' => 'date',
+        'order' => 'DESC',
+    );
+
+    return new WP_Query($args);
+}
+
+/**
  * Excerpt length
  */
 function four04_day_excerpt_length($length) {
