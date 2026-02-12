@@ -17,7 +17,7 @@ const sponsors: { src: string; alt: string; href?: string }[] = [
 
 const SponsorLogos = () => {
   return (
-    <section className="w-full bg-muted py-16 px-4">
+    <section className="w-full bg-white py-16 px-4">
       <div className="max-w-6xl mx-auto">
         <h3 className="text-center text-xl md:text-2xl font-black uppercase tracking-wider text-primary mb-3">
           Thank You to Our Partners & Sponsors
