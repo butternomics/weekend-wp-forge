@@ -1,13 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import PageHeader from '@/components/PageHeader';
 import SponsorLogos from '@/components/SponsorLogos';
 import Footer from '@/components/Footer';
 import logoMain from '@/assets/logo-main.png';
-import fundPage from '@/assets/fund-page1.jpg';
+import logo404Fund from '@/assets/logo-404fund.webp';
 import fundImpact from '@/assets/fund-impact.jpg';
+import lagerImage from '@/assets/404-lager.png';
+import logoMondayNight from '@/assets/logo-mondaynight.png';
+import logoCFGA from '@/assets/logo-cfga.png';
+import logoAUC from '@/assets/logo-auc.jpeg';
 
 const Fund = () => {
   return (
@@ -39,8 +42,8 @@ const Fund = () => {
                 A portion of the proceeds from each 404 Day Weekend event goes to The 404 Fund.
               </p>
             </div>
-            <div className="shadow-xl border border-border overflow-hidden">
-              <img src={fundPage} alt="The 404 Fund" className="w-full h-auto" />
+            <div className="flex items-center justify-center bg-primary p-12 rounded-lg">
+              <img src={logo404Fund} alt="The 404 Fund" className="w-full max-w-xs h-auto" />
             </div>
           </motion.div>
         </div>
@@ -123,7 +126,7 @@ const Fund = () => {
         </div>
       </section>
 
-      {/* Partners */}
+      {/* Our Friends */}
       <section className="w-full bg-muted/50 py-20 px-4">
         <div className="max-w-5xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-black text-primary uppercase mb-6">
@@ -133,19 +136,53 @@ const Fund = () => {
             The 404 Fund is supported by organizations that believe in Atlanta's future.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-            <div className="bg-card border border-border p-6 space-y-3">
+            <div className="bg-card border border-border p-6 space-y-4 flex flex-col items-center text-center">
+              <img src={logoMondayNight} alt="Monday Night Brewing" className="h-16 w-auto object-contain" />
               <h4 className="text-lg font-black text-primary uppercase">Monday Night Brewing</h4>
               <p className="text-sm text-muted-foreground">Monday Night Brewing's specialty-crafted 404 Atlanta Lager dedicates 4.04% of net proceeds to The 404 Fund.</p>
             </div>
-            <div className="bg-card border border-border p-6 space-y-3">
+            <div className="bg-card border border-border p-6 space-y-4 flex flex-col items-center text-center">
+              <img src={logoCFGA} alt="Community Foundation for Greater Atlanta" className="h-16 w-auto object-contain" />
               <h4 className="text-lg font-black text-primary uppercase">Community Foundation for Greater Atlanta</h4>
               <p className="text-sm text-muted-foreground">Committed to advancing prosperity, strengthening our region one neighborhood and neighbor at a time.</p>
             </div>
-            <div className="bg-card border border-border p-6 space-y-3">
+            <div className="bg-card border border-border p-6 space-y-4 flex flex-col items-center text-center">
+              <img src={logoAUC} alt="AUC Consortium" className="h-16 w-auto object-contain" />
               <h4 className="text-lg font-black text-primary uppercase">AUC Consortium</h4>
               <p className="text-sm text-muted-foreground">Spelman College, Morehouse College, Morehouse School of Medicine, and Clark Atlanta University — partnering to award academic scholarships.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* 404 Lager Section */}
+      <section className="w-full bg-background py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+          >
+            <div className="overflow-hidden shadow-xl border border-border">
+              <img src={lagerImage} alt="404 Atlanta Lager by Monday Night Brewing" className="w-full h-auto" />
+            </div>
+            <div>
+              <span className="bg-secondary text-primary px-4 py-1 text-xs font-bold uppercase tracking-widest">Partnership</span>
+              <h2 className="text-3xl md:text-4xl font-black text-primary uppercase mt-4 mb-6">
+                404 Day × Monday Night Brewing
+              </h2>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                In 2024, Monday Night Brewing launched <strong className="text-primary">404 Atlanta Lager</strong>.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                Monday Night Brewing is dedicating <strong className="text-primary">4.04% of net proceeds</strong> from 404 Atlanta Lager to The 404 Fund.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                This non-profit entity supports: scholarships and educational grants; youth education and employment initiatives; housing and food insecurity services; and mental health programs.
+              </p>
+            </div>
+          </motion.div>
         </div>
       </section>
 
