@@ -21,7 +21,7 @@
             </h2>
 
             <p style="font-size: 1.125rem; color: var(--color-muted-foreground); max-width: 48rem; margin: 0 auto 0.5rem;">
-                <?php esc_html_e('Join the 2nd Annual 404 Day Parade! There's no place like ATL, and no better way to celebrate its culture than during 404 Day Weekend!', '404-day-weekend'); ?>
+                <?php esc_html_e('Join the 2nd Annual 404 Day Parade! There\'s no place like ATL, and no better way to celebrate its culture than during 404 Day Weekend!', '404-day-weekend'); ?>
             </p>
 
             <p style="font-size: 1.125rem; font-weight: 700; color: var(--color-primary);">

@@ -426,6 +426,121 @@ function four04_day_get_partner_events() {
 }
 
 /**
+ * Register External Link post meta for Gutenberg compatibility
+ */
+function four04_day_register_external_link_meta() {
+    register_post_meta('post', '_external_link', array(
+        'type' => 'string',
+        'single' => true,
+        'show_in_rest' => true,
+        'sanitize_callback' => 'esc_url_raw',
+        'auth_callback' => function() {
+            return current_user_can('edit_posts');
+        }
+    ));
+}
+add_action('init', 'four04_day_register_external_link_meta');
+
+/**
+ * Add Meta Box for External Link on Blog Posts
+ */
+function four04_day_add_external_link_meta_box() {
+    add_meta_box(
+        'post_external_link',
+        __('External Link', '404-day-weekend'),
+        'four04_day_external_link_callback',
+        'post',
+        'side',
+        'high',
+        array(
+            '__back_compat_meta_box' => false,
+        )
+    );
+}
+add_action('add_meta_boxes', 'four04_day_add_external_link_meta_box');
+
+/**
+ * External Link Meta Box Callback
+ */
+function four04_day_external_link_callback($post) {
+    wp_nonce_field('four04_day_save_external_link', 'four04_day_external_link_nonce');
+
+    $external_link = get_post_meta($post->ID, '_external_link', true);
+
+    ?>
+    <p style="margin: 0 0 10px 0; font-size: 12px; color: #666;">
+        For news/press posts that link to external articles. Leave blank for normal blog posts.
+    </p>
+
+    <p>
+        <label for="external_link" style="display: block; margin-bottom: 5px; font-weight: 600; font-size: 13px;">
+            <?php _e('External Article URL', '404-day-weekend'); ?>
+        </label>
+        <input type="url" id="external_link" name="external_link"
+               value="<?php echo esc_url($external_link); ?>"
+               style="width: 100%; padding: 6px;"
+               placeholder="https://example.com/article" />
+    </p>
+
+    <p style="margin: 10px 0 0 0; font-size: 12px; color: #666;">
+        When set, clicking this post will open this URL instead.
+    </p>
+    <?php
+}
+
+/**
+ * Save External Link Meta Data
+ */
+function four04_day_save_external_link($post_id) {
+    if (!isset($_POST['four04_day_external_link_nonce']) ||
+        !wp_verify_nonce($_POST['four04_day_external_link_nonce'], 'four04_day_save_external_link')) {
+        return;
+    }
+
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    if (isset($_POST['external_link'])) {
+        update_post_meta($post_id, '_external_link', esc_url_raw($_POST['external_link']));
+    }
+}
+add_action('save_post', 'four04_day_save_external_link');
+
+/**
+ * Get the link for a post (external link if set, otherwise permalink)
+ */
+function four04_day_get_post_link($post_id = null) {
+    if (!$post_id) {
+        $post_id = get_the_ID();
+    }
+
+    $external_link = get_post_meta($post_id, '_external_link', true);
+
+    if ($external_link) {
+        return $external_link;
+    }
+
+    return get_permalink($post_id);
+}
+
+/**
+ * Check if post has external link
+ */
+function four04_day_has_external_link($post_id = null) {
+    if (!$post_id) {
+        $post_id = get_the_ID();
+    }
+
+    $external_link = get_post_meta($post_id, '_external_link', true);
+    return !empty($external_link);
+}
+
+/**
  * Excerpt length
  */
 function four04_day_excerpt_length($length) {
@@ -440,3 +555,31 @@ function four04_day_excerpt_more($more) {
     return '...';
 }
 add_filter('excerpt_more', 'four04_day_excerpt_more');
+
+/**
+ * Create Parade FAQ page programmatically
+ */
+function four04_day_create_parade_faq_page() {
+    // Check if page already exists
+    $faq_page = get_page_by_path('parade-faq');
+
+    if (!$faq_page) {
+        // Create the page
+        $page_data = array(
+            'post_title'    => 'Parade FAQ',
+            'post_content'  => '',
+            'post_status'   => 'publish',
+            'post_type'     => 'page',
+            'post_name'     => 'parade-faq',
+            'page_template' => 'page-parade-faq.php'
+        );
+
+        $page_id = wp_insert_post($page_data);
+
+        // Set the page template
+        if ($page_id && !is_wp_error($page_id)) {
+            update_post_meta($page_id, '_wp_page_template', 'page-parade-faq.php');
+        }
+    }
+}
+add_action('after_setup_theme', 'four04_day_create_parade_faq_page');
