@@ -165,13 +165,13 @@ p {
 }
 
 .site-logo img {
-  height: 3rem;
+  height: 4rem;
   width: auto;
 }
 
 @media (min-width: 768px) {
   .site-logo img {
-    height: 4rem;
+    height: 5.5rem;
   }
 }
 

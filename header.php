@@ -39,12 +39,6 @@
                     'fallback_cb'    => 'four04_day_fallback_menu',
                 ));
                 ?>
-                <a href="https://events.eventnoire.com/e/3rd-annual-404-fund-scholarship-gala"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="cta-button">
-                    <?php esc_html_e('Get Tickets', '404-day-weekend'); ?>
-                </a>
             </nav>
 
             <!-- Mobile Menu Toggle -->
@@ -66,12 +60,6 @@
                 'fallback_cb'    => 'four04_day_fallback_menu',
             ));
             ?>
-            <a href="https://events.eventnoire.com/e/3rd-annual-404-fund-scholarship-gala"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="cta-button">
-                <?php esc_html_e('Get Tickets', '404-day-weekend'); ?>
-            </a>
         </nav>
     </header><!-- #masthead -->
 
