@@ -555,3 +555,31 @@ function four04_day_excerpt_more($more) {
     return '...';
 }
 add_filter('excerpt_more', 'four04_day_excerpt_more');
+
+/**
+ * Create Parade FAQ page programmatically
+ */
+function four04_day_create_parade_faq_page() {
+    // Check if page already exists
+    $faq_page = get_page_by_path('parade-faq');
+
+    if (!$faq_page) {
+        // Create the page
+        $page_data = array(
+            'post_title'    => 'Parade FAQ',
+            'post_content'  => '',
+            'post_status'   => 'publish',
+            'post_type'     => 'page',
+            'post_name'     => 'parade-faq',
+            'page_template' => 'page-parade-faq.php'
+        );
+
+        $page_id = wp_insert_post($page_data);
+
+        // Set the page template
+        if ($page_id && !is_wp_error($page_id)) {
+            update_post_meta($page_id, '_wp_page_template', 'page-parade-faq.php');
+        }
+    }
+}
+add_action('after_setup_theme', 'four04_day_create_parade_faq_page');

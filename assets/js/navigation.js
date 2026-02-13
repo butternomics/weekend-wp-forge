@@ -63,5 +63,20 @@
                 }
             }, 250);
         });
+
+        // Handle mobile dropdown menus
+        const mobileMenuItems = mobileNavigation.querySelectorAll('.menu-item-has-children');
+        mobileMenuItems.forEach(function(item) {
+            const link = item.querySelector('a');
+            if (link) {
+                link.addEventListener('click', function(e) {
+                    const submenu = item.querySelector('.sub-menu');
+                    if (submenu) {
+                        e.preventDefault();
+                        item.classList.toggle('open');
+                    }
+                });
+            }
+        });
     });
 })();
