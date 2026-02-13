@@ -426,6 +426,22 @@ function four04_day_get_partner_events() {
 }
 
 /**
+ * Register External Link post meta for Gutenberg compatibility
+ */
+function four04_day_register_external_link_meta() {
+    register_post_meta('post', '_external_link', array(
+        'type' => 'string',
+        'single' => true,
+        'show_in_rest' => true,
+        'sanitize_callback' => 'esc_url_raw',
+        'auth_callback' => function() {
+            return current_user_can('edit_posts');
+        }
+    ));
+}
+add_action('init', 'four04_day_register_external_link_meta');
+
+/**
  * Add Meta Box for External Link on Blog Posts
  */
 function four04_day_add_external_link_meta_box() {
@@ -435,7 +451,10 @@ function four04_day_add_external_link_meta_box() {
         'four04_day_external_link_callback',
         'post',
         'side',
-        'default'
+        'high',
+        array(
+            '__back_compat_meta_box' => false,
+        )
     );
 }
 add_action('add_meta_boxes', 'four04_day_add_external_link_meta_box');
