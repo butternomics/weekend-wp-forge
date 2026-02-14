@@ -1,8 +1,6 @@
 ---
 name: wordpress-builder
 description: Transform designs, mockups, or HTML/CSS into fully functioning WordPress themes. Handles theme generation, file organization, custom post types, and deployment. Use when building a new WordPress site or extending an existing theme.
-disable-model-invocation: true
-user-invocable: true
 ---
 
 # WordPress Builder Skill
