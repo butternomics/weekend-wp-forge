@@ -71,7 +71,7 @@ get_header();
             <?php esc_html_e('Sponsor 404 Day Weekend', '404-day-weekend'); ?>
         </h2>
         <p style="font-size: 1.25rem; line-height: 1.8; color: var(--color-muted-foreground); margin-bottom: 2rem; max-width: 48rem; margin-left: auto; margin-right: auto;">
-            <?php esc_html_e('Join us in celebrating Atlanta\'s vibrant culture and community! Partner with 404 Day Weekend to showcase your brand to thousands of engaged attendees and support this iconic Atlanta celebration.', '404-day-weekend'); ?>
+            <?php esc_html_e('Join us in celebrating Atlanta\'s culture and community! Partner with 404 Day Weekend to showcase your brand to thousands of engaged attendees and support this iconic Atlanta celebration.', '404-day-weekend'); ?>
         </p>
         <a href="https://docs.google.com/presentation/d/1Fkjc6nhXeej4xH8DeOf4cYKSeUp-VnKYsKCnzz-ByPk/edit"
            target="_blank"

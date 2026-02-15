@@ -12,9 +12,6 @@ get_header();
 <div class="page-header">
     <div class="container">
         <h1 class="page-header-title"><?php esc_html_e('The 404 Fund', '404-day-weekend'); ?></h1>
-        <p class="page-header-subtitle">
-            <?php echo esc_html(get_theme_mod('fund_subtitle', 'Supporting Atlanta\'s Future, One Community at a Time')); ?>
-        </p>
     </div>
 </div>
 

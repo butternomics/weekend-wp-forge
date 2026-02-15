@@ -75,7 +75,7 @@
                 $participation_faqs = array(
                     array(
                         'question' => 'How can I participate in the parade?',
-                        'answer' => 'Individuals, businesses, and organizations can apply to participate as float entries, performers, or volunteers. Applications can be submitted through our official website 404weekend.com.',
+                        'answer' => 'Individuals, businesses, and organizations can apply to participate as float entries, performers, or volunteers. You can <a href="https://www.eventeny.com/events/2nd-404-day-parade-27361/" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); font-weight: 700; text-decoration: underline;">submit an application here</a>.',
                     ),
                     array(
                         'question' => 'Are there any restrictions on parade entries?',
@@ -151,11 +151,11 @@
                 $vendor_faqs = array(
                     array(
                         'question' => 'How can I become a vendor at the event?',
-                        'answer' => 'We will not be hosting vendors this year.',
+                        'answer' => 'We will not have vendors at the 404 Day Parade, but there are vendor spots available at the 404 Day Block Party at Underground Atlanta immediately after the parade. <a href="https://docs.google.com/forms/d/e/1FAIpQLSdNfOTJ-LjDyE1GaD1GIdhS3tPRhF11ieaKoExBF6TnDogRcA/viewform" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); font-weight: 700; text-decoration: underline;">Click here</a> to submit your vendor application today.',
                     ),
                     array(
                         'question' => 'Are sponsorship opportunities available?',
-                        'answer' => 'Yes! Businesses and organizations interested in sponsoring the parade can explore various sponsorship levels by contacting our sponsorship team at official404day@gmail.com using SUBJECT: SPONSORSHIP INFO',
+                        'answer' => 'Yes! Businesses and organizations interested in sponsoring 404 Day Weekend can <a href="https://docs.google.com/presentation/d/1Fkjc6nhXeej4xH8DeOf4cYKSeUp-VnKYsKCnzz-ByPk/edit" target="_blank" rel="noopener noreferrer" style="color: var(--color-primary); font-weight: 700; text-decoration: underline;">explore various sponsorship levels here</a>.',
                     ),
                 );
 

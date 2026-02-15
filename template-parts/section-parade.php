@@ -16,9 +16,13 @@
                      style="margin: 0 auto; width: 100%; max-width: 48rem; margin-bottom: 2rem;" />
             <?php endif; ?>
 
-            <h2 style="font-size: clamp(1.875rem, 5vw, 3rem); margin-bottom: 1rem;">
+            <h2 style="font-size: clamp(1.875rem, 5vw, 3rem); margin-bottom: 0.5rem;">
                 <?php esc_html_e('Join the 404 Day Parade!', '404-day-weekend'); ?>
             </h2>
+
+            <p style="font-size: clamp(1.875rem, 5vw, 3rem); margin-bottom: 1rem;">
+                <?php esc_html_e('Saturday, April 4, 2026 • Downtown Atlanta', '404-day-weekend'); ?>
+            </p>
 
             <p style="font-size: 1.125rem; color: var(--color-muted-foreground); max-width: 48rem; margin: 0 auto 0.5rem;">
                 <?php esc_html_e('Join the 2nd Annual 404 Day Parade! There\'s no place like ATL, and no better way to celebrate its culture than during 404 Day Weekend!', '404-day-weekend'); ?>

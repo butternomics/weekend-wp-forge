@@ -12,9 +12,6 @@ get_header();
 <div class="page-header">
     <div class="container">
         <h1 class="page-header-title"><?php esc_html_e('Event Schedule', '404-day-weekend'); ?></h1>
-        <p class="page-header-subtitle">
-            <?php echo esc_html(get_theme_mod('events_subtitle', 'April 1–5, 2026 • Atlanta, GA')); ?>
-        </p>
     </div>
 </div>
 
