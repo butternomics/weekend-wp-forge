@@ -721,7 +721,7 @@ if (!function_exists('four04_day_render_faq_item')) {
                     <span style="font-size: 1.5rem; transition: transform 0.2s;">+</span>
                 </summary>
                 <div style="margin-top: 1rem; font-size: 1.125rem; color: var(--color-muted-foreground); line-height: 1.6;">
-                    <?php echo esc_html($faq['answer']); ?>
+                    <?php echo wp_kses_post($faq['answer']); ?>
                 </div>
             </details>
         </div>
