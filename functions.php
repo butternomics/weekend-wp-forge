@@ -476,6 +476,7 @@ function four04_day_sponsor_details_callback($post) {
     wp_nonce_field('four04_day_save_sponsor_details', 'four04_day_sponsor_details_nonce');
 
     $sponsor_description = get_post_meta($post->ID, '_sponsor_description', true);
+    $sponsor_url = get_post_meta($post->ID, '_sponsor_url', true);
 
     ?>
     <div style="padding: 10px 0;">
@@ -483,19 +484,31 @@ function four04_day_sponsor_details_callback($post) {
             <strong>Instructions:</strong><br>
             1. Upload the sponsor logo using the "Sponsor Logo" section (Featured Image) below<br>
             2. Enter the sponsor name in the "Title" field above<br>
-            3. Enter a short description below<br>
+            3. Optionally add a website URL and description below<br>
             4. Use the "Order" field in the right sidebar to control the display order (lower numbers appear first)
         </p>
 
         <p>
+            <label for="sponsor_url" style="display: block; margin-bottom: 5px; font-weight: 600;">
+                <?php _e('Sponsor Website URL (Optional)', '404-day-weekend'); ?>
+            </label>
+            <input type="url" id="sponsor_url" name="sponsor_url" value="<?php echo esc_url($sponsor_url); ?>"
+                   style="width: 100%; padding: 8px;"
+                   placeholder="https://sponsor-website.com" />
+            <span style="display: block; margin-top: 5px; color: #666; font-size: 13px;">
+                If provided, the sponsor logo will be clickable and link to this URL (opens in new window)
+            </span>
+        </p>
+
+        <p>
             <label for="sponsor_description" style="display: block; margin-bottom: 5px; font-weight: 600;">
-                <?php _e('Sponsor Description', '404-day-weekend'); ?>
+                <?php _e('Sponsor Description (Optional)', '404-day-weekend'); ?>
             </label>
             <textarea id="sponsor_description" name="sponsor_description" rows="3"
                       style="width: 100%; padding: 8px;"
                       placeholder="Brief description of the sponsor's contribution or partnership (1-2 sentences)"><?php echo esc_textarea($sponsor_description); ?></textarea>
             <span style="display: block; margin-top: 5px; color: #666; font-size: 13px;">
-                Example: "Monday Night Brewing's specialty-crafted 404 Atlanta Lager dedicates 4.04% of net proceeds to The 404 Fund."
+                Note: This description is only used on the 404 Fund page, not in the footer sponsors section
             </span>
         </p>
     </div>
@@ -525,6 +538,11 @@ function four04_day_save_sponsor_details($post_id) {
     // Save sponsor description
     if (isset($_POST['sponsor_description'])) {
         update_post_meta($post_id, '_sponsor_description', sanitize_textarea_field($_POST['sponsor_description']));
+    }
+
+    // Save sponsor URL
+    if (isset($_POST['sponsor_url'])) {
+        update_post_meta($post_id, '_sponsor_url', esc_url_raw($_POST['sponsor_url']));
     }
 }
 add_action('save_post_sponsor', 'four04_day_save_sponsor_details');

@@ -189,40 +189,43 @@ get_header();
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; text-align: center;">
             <?php
-            // Query sponsors from custom post type
-            $sponsors = new WP_Query(array(
-                'post_type' => 'sponsor',
-                'posts_per_page' => -1,
-                'orderby' => 'menu_order',
-                'order' => 'ASC',
-            ));
+            $friends = array(
+                array(
+                    'logo' => 'logo-mondaynight.png',
+                    'name' => 'Monday Night Brewing',
+                    'description' => 'Monday Night Brewing\'s specialty-crafted 404 Atlanta Lager dedicates 4.04% of net proceeds to The 404 Fund.',
+                ),
+                array(
+                    'logo' => 'logo-cfga.png',
+                    'name' => 'Community Foundation for Greater Atlanta',
+                    'description' => 'Committed to advancing prosperity, strengthening our region one neighborhood and neighbor at a time.',
+                ),
+                array(
+                    'logo' => 'logo-auc.jpeg',
+                    'name' => 'AUC Consortium',
+                    'description' => 'Spelman College, Morehouse College, Morehouse School of Medicine, and Clark Atlanta University — partnering to award academic scholarships.',
+                ),
+            );
 
-            if ($sponsors->have_posts()) :
-                while ($sponsors->have_posts()) : $sponsors->the_post();
-                    $sponsor_description = get_post_meta(get_the_ID(), '_sponsor_description', true);
-                    $sponsor_logo = get_the_post_thumbnail_url(get_the_ID(), 'full');
+            foreach ($friends as $friend) :
+                if (file_exists(get_template_directory() . '/assets/images/' . $friend['logo'])) :
             ?>
                 <div style="background-color: var(--color-card); border: 1px solid var(--color-border); padding: 1.5rem; display: flex; flex-direction: column; align-items: center; min-height: 280px;">
-                    <?php if ($sponsor_logo) : ?>
-                        <div style="height: 80px; width: 100%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
-                            <img src="<?php echo esc_url($sponsor_logo); ?>"
-                                 alt="<?php echo esc_attr(get_the_title()); ?>"
-                                 style="max-height: 80px; max-width: 180px; width: auto; height: auto; object-fit: contain;" />
-                        </div>
-                    <?php endif; ?>
+                    <div style="height: 80px; width: 100%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/' . $friend['logo']); ?>"
+                             alt="<?php echo esc_attr($friend['name']); ?>"
+                             style="max-height: 80px; max-width: 180px; width: auto; height: auto; object-fit: contain;" />
+                    </div>
                     <h4 style="font-size: 1.125rem; margin-bottom: 1rem;">
-                        <?php the_title(); ?>
+                        <?php echo esc_html($friend['name']); ?>
                     </h4>
-                    <?php if ($sponsor_description) : ?>
-                        <p style="font-size: 0.875rem; color: var(--color-muted-foreground);">
-                            <?php echo esc_html($sponsor_description); ?>
-                        </p>
-                    <?php endif; ?>
+                    <p style="font-size: 0.875rem; color: var(--color-muted-foreground);">
+                        <?php echo esc_html($friend['description']); ?>
+                    </p>
                 </div>
             <?php
-                endwhile;
-                wp_reset_postdata();
-            endif;
+                endif;
+            endforeach;
             ?>
         </div>
     </div>

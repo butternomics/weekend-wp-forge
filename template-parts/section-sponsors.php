@@ -28,31 +28,38 @@
         <!-- Individual sponsor logo grid -->
         <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2.5rem;">
             <?php
-            $sponsors = array(
-                array('src' => 'sponsor-showcase-atlanta.jpg', 'alt' => 'Showcase Atlanta', 'href' => ''),
-                array('src' => 'sponsor-beltline.jpg', 'alt' => 'Atlanta Beltline', 'href' => ''),
-                array('src' => 'sponsor-grady.jpg', 'alt' => 'Grady Health', 'href' => ''),
-            );
+            // Query sponsors from custom post type
+            $sponsors = new WP_Query(array(
+                'post_type' => 'sponsor',
+                'posts_per_page' => -1,
+                'orderby' => 'menu_order',
+                'order' => 'ASC',
+            ));
 
-            foreach ($sponsors as $sponsor) :
-                if (file_exists(get_template_directory() . '/assets/images/' . $sponsor['src'])) :
+            if ($sponsors->have_posts()) :
+                while ($sponsors->have_posts()) : $sponsors->the_post();
+                    $sponsor_logo = get_the_post_thumbnail_url(get_the_ID(), 'full');
+                    $sponsor_url = get_post_meta(get_the_ID(), '_sponsor_url', true);
             ?>
                 <div style="flex-shrink: 0;">
-                    <?php if (!empty($sponsor['href'])) : ?>
-                        <a href="<?php echo esc_url($sponsor['href']); ?>" target="_blank" rel="noopener noreferrer">
-                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/' . $sponsor['src']); ?>"
-                                 alt="<?php echo esc_attr($sponsor['alt']); ?>"
-                                 style="height: clamp(3.5rem, 5vw, 5rem); width: auto; max-width: 180px; object-fit: contain; opacity: 0.8; transition: opacity 0.2s;" />
-                        </a>
-                    <?php else : ?>
-                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/' . $sponsor['src']); ?>"
-                             alt="<?php echo esc_attr($sponsor['alt']); ?>"
-                             style="height: clamp(3.5rem, 5vw, 5rem); width: auto; max-width: 180px; object-fit: contain; opacity: 0.8;" />
+                    <?php if ($sponsor_logo) : ?>
+                        <?php if (!empty($sponsor_url)) : ?>
+                            <a href="<?php echo esc_url($sponsor_url); ?>" target="_blank" rel="noopener noreferrer">
+                                <img src="<?php echo esc_url($sponsor_logo); ?>"
+                                     alt="<?php echo esc_attr(get_the_title()); ?>"
+                                     style="height: clamp(3.5rem, 5vw, 5rem); width: auto; max-width: 180px; object-fit: contain; opacity: 0.8; transition: opacity 0.2s;" />
+                            </a>
+                        <?php else : ?>
+                            <img src="<?php echo esc_url($sponsor_logo); ?>"
+                                 alt="<?php echo esc_attr(get_the_title()); ?>"
+                                 style="height: clamp(3.5rem, 5vw, 5rem); width: auto; max-width: 180px; object-fit: contain; opacity: 0.8;" />
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             <?php
-                endif;
-            endforeach;
+                endwhile;
+                wp_reset_postdata();
+            endif;
             ?>
         </div>
     </div>
