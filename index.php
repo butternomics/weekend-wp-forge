@@ -10,8 +10,7 @@ get_header();
 
 <div class="page-header">
     <div class="container container-narrow">
-        <h1 class="page-header-title"><?php esc_html_e('Blog', '404-day-weekend'); ?></h1>
-        <p class="page-header-subtitle"><?php esc_html_e('Stories, News & Updates', '404-day-weekend'); ?></p>
+        <h1 class="page-header-title"><?php esc_html_e('404 News and Updates', '404-day-weekend'); ?></h1>
     </div>
 </div>
 
@@ -28,9 +27,6 @@ get_header();
                             ?>
                                 <span class="blog-category"><?php echo esc_html($categories[0]->name); ?></span>
                             <?php endif; ?>
-                            <time class="blog-date" datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-                                <?php echo esc_html(get_the_date()); ?>
-                            </time>
                         </div>
 
                         <?php
@@ -42,10 +38,6 @@ get_header();
                         <h2 class="blog-title">
                             <a href="<?php echo esc_url($post_link); ?>"<?php echo $link_attrs; ?>><?php the_title(); ?></a>
                         </h2>
-
-                        <div class="blog-excerpt">
-                            <?php the_excerpt(); ?>
-                        </div>
 
                         <a href="<?php echo esc_url($post_link); ?>" class="blog-read-more"<?php echo $link_attrs; ?>>
                             <?php esc_html_e('Read More →', '404-day-weekend'); ?>

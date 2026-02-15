@@ -191,6 +191,7 @@ p {
 #mobile-menu {
   display: flex;
   flex-direction: row;
+  align-items: center;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -264,6 +265,34 @@ p {
 
 #primary-menu .sub-menu li:last-child a {
   border-bottom: none;
+}
+
+/* Sponsor Button */
+.menu-item-sponsor a,
+.sponsor-button,
+#primary-menu .menu-item-sponsor a,
+.main-navigation .menu-item-sponsor a {
+  background-color: var(--color-secondary) !important;
+  color: var(--color-primary) !important;
+  padding: 0.5rem 1.5rem !important;
+  border-radius: 0.25rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
+.menu-item-sponsor a:hover,
+.sponsor-button:hover,
+#primary-menu .menu-item-sponsor a:hover,
+.main-navigation .menu-item-sponsor a:hover {
+  background-color: #c9a462 !important;
+  color: var(--color-primary) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Mobile Dropdown Styles */
@@ -779,9 +808,26 @@ p {
    Page Header
    =================================== */
 .page-header {
-  background-color: var(--color-muted);
+  position: relative;
   padding: 4rem 1rem;
   text-align: center;
+  background-image: url('assets/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(27, 59, 54, 0.4), rgba(240, 242, 241, 0.6), rgba(240, 242, 241, 0.8));
+  z-index: 0;
+}
+
+.page-header .container {
+  position: relative;
+  z-index: 1;
 }
 
 .page-header-title {

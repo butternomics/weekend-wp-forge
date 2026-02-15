@@ -22,17 +22,9 @@
                     ?>
                 </p>
                 <div class="social-links">
-                    <a href="<?php echo esc_url(get_theme_mod('instagram_url', 'https://www.instagram.com/butter.atl')); ?>"
+                    <a href="https://instagram.com/atl404day"
                        target="_blank" rel="noopener noreferrer">
                         <?php esc_html_e('Instagram', '404-day-weekend'); ?>
-                    </a>
-                    <a href="<?php echo esc_url(get_theme_mod('twitter_url', 'https://twitter.com/atlantainfluenc')); ?>"
-                       target="_blank" rel="noopener noreferrer">
-                        <?php esc_html_e('Twitter', '404-day-weekend'); ?>
-                    </a>
-                    <a href="<?php echo esc_url(get_theme_mod('facebook_url', '#')); ?>"
-                       target="_blank" rel="noopener noreferrer">
-                        <?php esc_html_e('Facebook', '404-day-weekend'); ?>
                     </a>
                 </div>
             </div>

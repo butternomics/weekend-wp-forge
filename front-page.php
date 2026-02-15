@@ -64,11 +64,23 @@ get_header();
 <!-- Event Schedule Section -->
 <?php get_template_part('template-parts/section', 'events'); ?>
 
-<!-- Parade Section -->
-<?php get_template_part('template-parts/section', 'parade'); ?>
-
-<!-- FAQ Section -->
-<?php get_template_part('template-parts/section', 'faq'); ?>
+<!-- Sponsor Roll for 404 Day Section -->
+<section class="section section-muted">
+    <div class="container" style="max-width: 64rem; text-align: center;">
+        <h2 style="font-size: clamp(2.25rem, 5vw, 3rem); margin-bottom: 1.5rem; color: var(--color-primary);">
+            <?php esc_html_e('Sponsor 404 Day Weekend', '404-day-weekend'); ?>
+        </h2>
+        <p style="font-size: 1.25rem; line-height: 1.8; color: var(--color-muted-foreground); margin-bottom: 2rem; max-width: 48rem; margin-left: auto; margin-right: auto;">
+            <?php esc_html_e('Join us in celebrating Atlanta\'s culture and community! Partner with 404 Day Weekend to showcase your brand to thousands of engaged attendees and support this iconic Atlanta celebration.', '404-day-weekend'); ?>
+        </p>
+        <a href="https://docs.google.com/presentation/d/1Fkjc6nhXeej4xH8DeOf4cYKSeUp-VnKYsKCnzz-ByPk/edit"
+           target="_blank"
+           rel="noopener noreferrer"
+           style="display: inline-block; background-color: var(--color-secondary); color: var(--color-primary); padding: 1rem 2.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; font-size: 1.125rem; transition: all 0.3s; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); text-decoration: none;">
+            <?php esc_html_e('Request Sponsorship Info', '404-day-weekend'); ?>
+        </a>
+    </div>
+</section>
 
 <!-- Sponsor Logos Section -->
 <?php get_template_part('template-parts/section', 'sponsors'); ?>

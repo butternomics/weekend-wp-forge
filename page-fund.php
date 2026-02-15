@@ -12,11 +12,19 @@ get_header();
 <div class="page-header">
     <div class="container">
         <h1 class="page-header-title"><?php esc_html_e('The 404 Fund', '404-day-weekend'); ?></h1>
-        <p class="page-header-subtitle">
-            <?php echo esc_html(get_theme_mod('fund_subtitle', 'Supporting Atlanta\'s Future, One Community at a Time')); ?>
-        </p>
     </div>
 </div>
+
+<!-- Hero Image Section -->
+<?php if (file_exists(get_template_directory() . '/assets/images/fund-hero.jpg')) : ?>
+<section style="padding: 0 0 2rem 0;">
+    <div class="container" style="max-width: 80rem;">
+        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-hero.jpg'); ?>"
+             alt="404 Fund Scholarship Recipients"
+             style="width: 100%; height: auto; display: block; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);" />
+    </div>
+</section>
+<?php endif; ?>
 
 <!-- Mission Section -->
 <section class="section">
@@ -120,28 +128,46 @@ get_header();
                     <?php endwhile; ?>
                 <?php endif; ?>
             <?php else : // Default programs ?>
-                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); padding: 2rem;">
-                    <span style="background-color: var(--color-secondary); color: var(--color-primary); padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 1rem;">
-                        <?php esc_html_e('Education', '404-day-weekend'); ?>
-                    </span>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">
-                        <?php esc_html_e('404 Day Scholarship', '404-day-weekend'); ?>
-                    </h3>
-                    <p style="color: var(--color-muted-foreground); line-height: 1.6;">
-                        Each year, thousands of students of color in Georgia leave college because of financial gaps as small as $1,500. The 404 Fund Scholarship was created to change that — helping juniors and seniors stay on track to graduate. In partnership with the AUC Consortium, we award scholarships to support the next generation of Atlanta's talent.
-                    </p>
+                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); overflow: hidden;">
+                    <?php if (file_exists(get_template_directory() . '/assets/images/fund-scholarship.jpg')) : ?>
+                        <div style="width: 100%; overflow: hidden;">
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-scholarship.jpg'); ?>"
+                                 alt="404 Fund Scholarship Recipients"
+                                 style="width: 100%; height: auto; display: block;" />
+                        </div>
+                    <?php endif; ?>
+                    <div style="padding: 2rem;">
+                        <span style="background-color: var(--color-secondary); color: var(--color-primary); padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 1rem;">
+                            <?php esc_html_e('Education', '404-day-weekend'); ?>
+                        </span>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">
+                            <?php esc_html_e('404 Day Scholarship', '404-day-weekend'); ?>
+                        </h3>
+                        <p style="color: var(--color-muted-foreground); line-height: 1.6;">
+                            Each year, thousands of students of color in Georgia leave college because of financial gaps as small as $1,500. The 404 Fund Scholarship was created to change that — helping juniors and seniors stay on track to graduate. In partnership with the AUC Consortium, we award scholarships to support the next generation of Atlanta's talent.
+                        </p>
+                    </div>
                 </div>
 
-                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); padding: 2rem;">
-                    <span style="background-color: var(--color-secondary); color: var(--color-primary); padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 1rem;">
-                        <?php esc_html_e('Small Business', '404-day-weekend'); ?>
-                    </span>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">
-                        <?php esc_html_e('Maynard Jackson Small Business Grant', '404-day-weekend'); ?>
-                    </h3>
-                    <p style="color: var(--color-muted-foreground); line-height: 1.6;">
-                        Small businesses power Georgia's economy, and Atlanta is the hub. The Maynard Jackson Small Business Grant honors that legacy, providing critical support to help local businesses overcome challenges and grow — continuing Maynard Jackson's vision for a thriving, inclusive entrepreneurial ecosystem in Atlanta.
-                    </p>
+                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); overflow: hidden;">
+                    <?php if (file_exists(get_template_directory() . '/assets/images/fund-grant.png')) : ?>
+                        <div style="width: 100%; overflow: hidden;">
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-grant.png'); ?>"
+                                 alt="Maynard Jackson Small Business Grant Recipient - The Grocery Spot"
+                                 style="width: 100%; height: auto; display: block;" />
+                        </div>
+                    <?php endif; ?>
+                    <div style="padding: 2rem;">
+                        <span style="background-color: var(--color-secondary); color: var(--color-primary); padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 1rem;">
+                            <?php esc_html_e('Small Business', '404-day-weekend'); ?>
+                        </span>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">
+                            <?php esc_html_e('Maynard Jackson Small Business Grant', '404-day-weekend'); ?>
+                        </h3>
+                        <p style="color: var(--color-muted-foreground); line-height: 1.6;">
+                            Small businesses power Georgia's economy, and Atlanta is the hub. The Maynard Jackson Small Business Grant honors that legacy, providing critical support to help local businesses overcome challenges and grow — continuing Maynard Jackson's vision for a thriving, inclusive entrepreneurial ecosystem in Atlanta.
+                        </p>
+                    </div>
                 </div>
             <?php endif; ?>
         </div>
@@ -158,7 +184,7 @@ get_header();
             <?php esc_html_e('The 404 Fund is supported by organizations that believe in Atlanta\'s future.', '404-day-weekend'); ?>
         </p>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; text-align: center;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; text-align: center;">
             <?php
             $friends = array(
                 array(
@@ -181,10 +207,12 @@ get_header();
             foreach ($friends as $friend) :
                 if (file_exists(get_template_directory() . '/assets/images/' . $friend['logo'])) :
             ?>
-                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); padding: 1.5rem; display: flex; flex-direction: column; align-items: center;">
-                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/' . $friend['logo']); ?>"
-                         alt="<?php echo esc_attr($friend['name']); ?>"
-                         style="height: 4rem; width: auto; object-fit: contain; margin-bottom: 1rem;" />
+                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); padding: 1.5rem; display: flex; flex-direction: column; align-items: center; min-height: 280px;">
+                    <div style="height: 80px; width: 100%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/' . $friend['logo']); ?>"
+                             alt="<?php echo esc_attr($friend['name']); ?>"
+                             style="max-height: 80px; max-width: 180px; width: auto; height: auto; object-fit: contain;" />
+                    </div>
                     <h4 style="font-size: 1.125rem; margin-bottom: 1rem;">
                         <?php echo esc_html($friend['name']); ?>
                     </h4>

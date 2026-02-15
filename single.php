@@ -20,9 +20,6 @@ get_header();
                     ?>
                         <span class="blog-category"><?php echo esc_html($categories[0]->name); ?></span>
                     <?php endif; ?>
-                    <time class="blog-date" datetime="<?php echo esc_attr(get_the_date('c')); ?>">
-                        <?php echo esc_html(get_the_date()); ?>
-                    </time>
                 </div>
 
                 <h1 class="page-header-title"><?php the_title(); ?></h1>
@@ -78,13 +75,6 @@ get_header();
                         <?php endif; ?>
                     </div>
                 </div>
-
-                <!-- Comments -->
-                <?php
-                if (comments_open() || get_comments_number()) :
-                    comments_template();
-                endif;
-                ?>
             </div>
         </main>
     </article>

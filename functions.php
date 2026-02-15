@@ -77,6 +77,19 @@ function four04_day_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'four04_day_enqueue_scripts');
 
 /**
+ * Add favicon to the site
+ */
+function four04_day_add_favicon() {
+    $favicon_ico = get_template_directory_uri() . '/assets/images/favicon.ico';
+    $favicon_png = get_template_directory_uri() . '/assets/images/favicon.png';
+
+    echo '<link rel="icon" type="image/x-icon" href="' . esc_url($favicon_ico) . '">' . "\n";
+    echo '<link rel="icon" type="image/png" sizes="192x192" href="' . esc_url($favicon_png) . '">' . "\n";
+    echo '<link rel="apple-touch-icon" sizes="192x192" href="' . esc_url($favicon_png) . '">' . "\n";
+}
+add_action('wp_head', 'four04_day_add_favicon');
+
+/**
  * Register Custom Post Type: Events
  */
 function four04_day_register_event_post_type() {
@@ -156,6 +169,51 @@ function four04_day_register_partner_event_post_type() {
     register_post_type('partner_event', $args);
 }
 add_action('init', 'four04_day_register_partner_event_post_type');
+
+/**
+ * Register Custom Post Type: Sponsors
+ */
+function four04_day_register_sponsor_post_type() {
+    $labels = array(
+        'name'                  => _x('Sponsors', 'Post type general name', '404-day-weekend'),
+        'singular_name'         => _x('Sponsor', 'Post type singular name', '404-day-weekend'),
+        'menu_name'             => _x('Sponsors', 'Admin Menu text', '404-day-weekend'),
+        'name_admin_bar'        => _x('Sponsor', 'Add New on Toolbar', '404-day-weekend'),
+        'add_new'               => __('Add New', '404-day-weekend'),
+        'add_new_item'          => __('Add New Sponsor', '404-day-weekend'),
+        'new_item'              => __('New Sponsor', '404-day-weekend'),
+        'edit_item'             => __('Edit Sponsor', '404-day-weekend'),
+        'view_item'             => __('View Sponsor', '404-day-weekend'),
+        'all_items'             => __('All Sponsors', '404-day-weekend'),
+        'search_items'          => __('Search Sponsors', '404-day-weekend'),
+        'not_found'             => __('No sponsors found.', '404-day-weekend'),
+        'not_found_in_trash'    => __('No sponsors found in Trash.', '404-day-weekend'),
+        'featured_image'        => _x('Sponsor Logo', 'Overrides the "Featured Image" phrase', '404-day-weekend'),
+        'set_featured_image'    => _x('Set sponsor logo', 'Overrides the "Set featured image" phrase', '404-day-weekend'),
+        'remove_featured_image' => _x('Remove sponsor logo', 'Overrides the "Remove featured image" phrase', '404-day-weekend'),
+        'use_featured_image'    => _x('Use as sponsor logo', 'Overrides the "Use as featured image" phrase', '404-day-weekend'),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => false,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'sponsor'),
+        'capability_type'    => 'post',
+        'has_archive'        => false,
+        'hierarchical'       => false,
+        'menu_position'      => 7,
+        'menu_icon'          => 'dashicons-awards',
+        'supports'           => array('title', 'thumbnail', 'page-attributes'),
+        'show_in_rest'       => true,
+    );
+
+    register_post_type('sponsor', $args);
+}
+add_action('init', 'four04_day_register_sponsor_post_type');
 
 /**
  * Add Meta Boxes for Events
@@ -397,6 +455,99 @@ function four04_day_save_partner_event_details($post_id) {
 add_action('save_post_partner_event', 'four04_day_save_partner_event_details');
 
 /**
+ * Add Meta Boxes for Sponsors
+ */
+function four04_day_add_sponsor_meta_boxes() {
+    add_meta_box(
+        'sponsor_details',
+        __('Sponsor Details', '404-day-weekend'),
+        'four04_day_sponsor_details_callback',
+        'sponsor',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'four04_day_add_sponsor_meta_boxes');
+
+/**
+ * Sponsor Details Meta Box Callback
+ */
+function four04_day_sponsor_details_callback($post) {
+    wp_nonce_field('four04_day_save_sponsor_details', 'four04_day_sponsor_details_nonce');
+
+    $sponsor_description = get_post_meta($post->ID, '_sponsor_description', true);
+    $sponsor_url = get_post_meta($post->ID, '_sponsor_url', true);
+
+    ?>
+    <div style="padding: 10px 0;">
+        <p style="margin-bottom: 20px; padding: 10px; background: #f0f8ff; border-left: 4px solid #0073aa;">
+            <strong>Instructions:</strong><br>
+            1. Upload the sponsor logo using the "Sponsor Logo" section (Featured Image) below<br>
+            2. Enter the sponsor name in the "Title" field above<br>
+            3. Optionally add a website URL and description below<br>
+            4. Use the "Order" field in the right sidebar to control the display order (lower numbers appear first)
+        </p>
+
+        <p>
+            <label for="sponsor_url" style="display: block; margin-bottom: 5px; font-weight: 600;">
+                <?php _e('Sponsor Website URL (Optional)', '404-day-weekend'); ?>
+            </label>
+            <input type="url" id="sponsor_url" name="sponsor_url" value="<?php echo esc_url($sponsor_url); ?>"
+                   style="width: 100%; padding: 8px;"
+                   placeholder="https://sponsor-website.com" />
+            <span style="display: block; margin-top: 5px; color: #666; font-size: 13px;">
+                If provided, the sponsor logo will be clickable and link to this URL (opens in new window)
+            </span>
+        </p>
+
+        <p>
+            <label for="sponsor_description" style="display: block; margin-bottom: 5px; font-weight: 600;">
+                <?php _e('Sponsor Description (Optional)', '404-day-weekend'); ?>
+            </label>
+            <textarea id="sponsor_description" name="sponsor_description" rows="3"
+                      style="width: 100%; padding: 8px;"
+                      placeholder="Brief description of the sponsor's contribution or partnership (1-2 sentences)"><?php echo esc_textarea($sponsor_description); ?></textarea>
+            <span style="display: block; margin-top: 5px; color: #666; font-size: 13px;">
+                Note: This description is only used on the 404 Fund page, not in the footer sponsors section
+            </span>
+        </p>
+    </div>
+    <?php
+}
+
+/**
+ * Save Sponsor Meta Box Data
+ */
+function four04_day_save_sponsor_details($post_id) {
+    // Check nonce
+    if (!isset($_POST['four04_day_sponsor_details_nonce']) ||
+        !wp_verify_nonce($_POST['four04_day_sponsor_details_nonce'], 'four04_day_save_sponsor_details')) {
+        return;
+    }
+
+    // Check autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Check permissions
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // Save sponsor description
+    if (isset($_POST['sponsor_description'])) {
+        update_post_meta($post_id, '_sponsor_description', sanitize_textarea_field($_POST['sponsor_description']));
+    }
+
+    // Save sponsor URL
+    if (isset($_POST['sponsor_url'])) {
+        update_post_meta($post_id, '_sponsor_url', esc_url_raw($_POST['sponsor_url']));
+    }
+}
+add_action('save_post_sponsor', 'four04_day_save_sponsor_details');
+
+/**
  * Get all events ordered by custom order field
  */
 function four04_day_get_events() {
@@ -557,6 +708,29 @@ function four04_day_excerpt_more($more) {
 add_filter('excerpt_more', 'four04_day_excerpt_more');
 
 /**
+ * Helper function to render FAQ items
+ */
+if (!function_exists('four04_day_render_faq_item')) {
+    function four04_day_render_faq_item($faq) {
+        ob_start();
+        ?>
+        <div style="border-bottom: 1px solid var(--color-border); padding: 1.5rem 0;">
+            <details style="cursor: pointer;">
+                <summary style="font-size: 1.25rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                    <?php echo esc_html($faq['question']); ?>
+                    <span style="font-size: 1.5rem; transition: transform 0.2s;">+</span>
+                </summary>
+                <div style="margin-top: 1rem; font-size: 1.125rem; color: var(--color-muted-foreground); line-height: 1.6;">
+                    <?php echo wp_kses_post($faq['answer']); ?>
+                </div>
+            </details>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+}
+
+/**
  * Create Parade FAQ page programmatically
  */
 function four04_day_create_parade_faq_page() {
@@ -583,3 +757,57 @@ function four04_day_create_parade_faq_page() {
     }
 }
 add_action('after_setup_theme', 'four04_day_create_parade_faq_page');
+
+/**
+ * Add target="_blank" to sponsor menu items
+ */
+function four04_day_sponsor_link_attributes($atts, $item, $args) {
+    // Check if this menu item has the 'menu-item-sponsor' class
+    if (in_array('menu-item-sponsor', $item->classes)) {
+        $atts['target'] = '_blank';
+        $atts['rel'] = 'noopener noreferrer';
+    }
+    return $atts;
+}
+add_filter('nav_menu_link_attributes', 'four04_day_sponsor_link_attributes', 10, 3);
+
+/**
+ * Disable comments completely
+ */
+function four04_day_disable_comments() {
+    // Close comments on the front-end
+    add_filter('comments_open', '__return_false', 20, 2);
+    add_filter('pings_open', '__return_false', 20, 2);
+
+    // Hide existing comments
+    add_filter('comments_array', '__return_empty_array', 10, 2);
+
+    // Remove comments page in menu
+    add_action('admin_menu', function() {
+        remove_menu_page('edit-comments.php');
+    });
+
+    // Remove comments links from admin bar
+    add_action('init', function() {
+        if (is_admin_bar_showing()) {
+            remove_action('admin_bar_menu', 'wp_admin_bar_comments_menu', 60);
+        }
+    });
+
+    // Remove comments metabox from dashboard
+    add_action('admin_init', function() {
+        remove_meta_box('dashboard_recent_comments', 'dashboard', 'normal');
+    });
+
+    // Disable support for comments and trackbacks in post types
+    add_action('admin_init', function() {
+        $post_types = get_post_types();
+        foreach ($post_types as $post_type) {
+            if (post_type_supports($post_type, 'comments')) {
+                remove_post_type_support($post_type, 'comments');
+                remove_post_type_support($post_type, 'trackbacks');
+            }
+        }
+    });
+}
+add_action('after_setup_theme', 'four04_day_disable_comments');

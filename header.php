@@ -77,6 +77,7 @@ function four04_day_fallback_menu() {
         <li><a href="<?php echo esc_url(home_url('/parade')); ?>"><?php esc_html_e('Parade', '404-day-weekend'); ?></a></li>
         <li><a href="<?php echo esc_url(home_url('/404-fund')); ?>"><?php esc_html_e('404 Fund', '404-day-weekend'); ?></a></li>
         <li><a href="<?php echo esc_url(home_url('/blog')); ?>"><?php esc_html_e('Blog', '404-day-weekend'); ?></a></li>
+        <li class="menu-item-sponsor"><a href="https://docs.google.com/presentation/d/1Fkjc6nhXeej4xH8DeOf4cYKSeUp-VnKYsKCnzz-ByPk/edit" target="_blank" rel="noopener noreferrer" class="sponsor-button"><?php esc_html_e('Sponsor', '404-day-weekend'); ?></a></li>
     </ul>
     <?php
 }
