@@ -268,24 +268,29 @@ p {
 
 /* Sponsor Button */
 .menu-item-sponsor a,
-.sponsor-button {
+.sponsor-button,
+#primary-menu .menu-item-sponsor a,
+.main-navigation .menu-item-sponsor a {
   background-color: var(--color-secondary) !important;
   color: var(--color-primary) !important;
   padding: 0.625rem 1.5rem !important;
-  border-radius: 0.25rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+  display: inline-block !important;
 }
 
 .menu-item-sponsor a:hover,
-.sponsor-button:hover {
+.sponsor-button:hover,
+#primary-menu .menu-item-sponsor a:hover,
+.main-navigation .menu-item-sponsor a:hover {
   background-color: #c9a462 !important;
   color: var(--color-primary) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15) !important;
 }
 
 /* Mobile Dropdown Styles */
