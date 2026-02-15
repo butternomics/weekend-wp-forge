@@ -20,11 +20,11 @@ get_header();
 
 <!-- Hero Image Section -->
 <?php if (file_exists(get_template_directory() . '/assets/images/fund-hero.jpg')) : ?>
-<section style="padding: 0;">
-    <div style="width: 100%; max-height: 600px; overflow: hidden;">
+<section class="section">
+    <div class="container" style="text-align: center;">
         <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-hero.jpg'); ?>"
              alt="404 Fund Scholarship Recipients"
-             style="width: 100%; height: auto; object-fit: cover; display: block;" />
+             style="width: 100%; max-width: 20rem; height: auto; display: inline-block;" />
     </div>
 </section>
 <?php endif; ?>
@@ -133,10 +133,10 @@ get_header();
             <?php else : // Default programs ?>
                 <div style="background-color: var(--color-card); border: 1px solid var(--color-border); overflow: hidden;">
                     <?php if (file_exists(get_template_directory() . '/assets/images/fund-scholarship.jpg')) : ?>
-                        <div style="width: 100%; overflow: hidden; max-height: 400px;">
+                        <div style="width: 100%; overflow: hidden;">
                             <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-scholarship.jpg'); ?>"
                                  alt="404 Fund Scholarship Recipients"
-                                 style="width: 100%; height: auto; object-fit: cover; display: block;" />
+                                 style="width: 100%; height: auto; display: block;" />
                         </div>
                     <?php endif; ?>
                     <div style="padding: 2rem;">
@@ -153,11 +153,11 @@ get_header();
                 </div>
 
                 <div style="background-color: var(--color-card); border: 1px solid var(--color-border); overflow: hidden;">
-                    <?php if (file_exists(get_template_directory() . '/assets/images/fund-grant.jpg')) : ?>
-                        <div style="width: 100%; overflow: hidden; max-height: 400px;">
-                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-grant.jpg'); ?>"
+                    <?php if (file_exists(get_template_directory() . '/assets/images/fund-grant.png')) : ?>
+                        <div style="width: 100%; overflow: hidden;">
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-grant.png'); ?>"
                                  alt="Maynard Jackson Small Business Grant Recipient - The Grocery Spot"
-                                 style="width: 100%; height: auto; object-fit: cover; display: block;" />
+                                 style="width: 100%; height: auto; display: block;" />
                         </div>
                     <?php endif; ?>
                     <div style="padding: 2rem;">
