@@ -187,7 +187,7 @@ get_header();
             <?php esc_html_e('The 404 Fund is supported by organizations that believe in Atlanta\'s future.', '404-day-weekend'); ?>
         </p>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; text-align: center;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; text-align: center;">
             <?php
             $friends = array(
                 array(
@@ -210,10 +210,12 @@ get_header();
             foreach ($friends as $friend) :
                 if (file_exists(get_template_directory() . '/assets/images/' . $friend['logo'])) :
             ?>
-                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); padding: 1.5rem; display: flex; flex-direction: column; align-items: center;">
-                    <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/' . $friend['logo']); ?>"
-                         alt="<?php echo esc_attr($friend['name']); ?>"
-                         style="height: 4rem; width: auto; object-fit: contain; margin-bottom: 1rem;" />
+                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); padding: 1.5rem; display: flex; flex-direction: column; align-items: center; min-height: 280px;">
+                    <div style="height: 80px; width: 100%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/' . $friend['logo']); ?>"
+                             alt="<?php echo esc_attr($friend['name']); ?>"
+                             style="max-height: 80px; max-width: 180px; width: auto; height: auto; object-fit: contain;" />
+                    </div>
                     <h4 style="font-size: 1.125rem; margin-bottom: 1rem;">
                         <?php echo esc_html($friend['name']); ?>
                     </h4>

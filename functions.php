@@ -77,6 +77,19 @@ function four04_day_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'four04_day_enqueue_scripts');
 
 /**
+ * Add favicon to the site
+ */
+function four04_day_add_favicon() {
+    $favicon_ico = get_template_directory_uri() . '/assets/images/favicon.ico';
+    $favicon_png = get_template_directory_uri() . '/assets/images/favicon.png';
+
+    echo '<link rel="icon" type="image/x-icon" href="' . esc_url($favicon_ico) . '">' . "\n";
+    echo '<link rel="icon" type="image/png" sizes="192x192" href="' . esc_url($favicon_png) . '">' . "\n";
+    echo '<link rel="apple-touch-icon" sizes="192x192" href="' . esc_url($favicon_png) . '">' . "\n";
+}
+add_action('wp_head', 'four04_day_add_favicon');
+
+/**
  * Register Custom Post Type: Events
  */
 function four04_day_register_event_post_type() {
