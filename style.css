@@ -266,6 +266,28 @@ p {
   border-bottom: none;
 }
 
+/* Sponsor Button */
+.menu-item-sponsor a,
+.sponsor-button {
+  background-color: var(--color-secondary) !important;
+  color: var(--color-primary) !important;
+  padding: 0.625rem 1.5rem !important;
+  border-radius: 0.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item-sponsor a:hover,
+.sponsor-button:hover {
+  background-color: #c9a462 !important;
+  color: var(--color-primary) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
 /* Mobile Dropdown Styles */
 @media (max-width: 767px) {
   #mobile-menu .sub-menu {
@@ -779,9 +801,10 @@ p {
    Page Header
    =================================== */
 .page-header {
-  background-color: var(--color-muted);
+  background: linear-gradient(rgba(247, 244, 237, 0.85), rgba(247, 244, 237, 0.85)), url('assets/images/hero-bg.jpg') center/cover no-repeat;
   padding: 4rem 1rem;
   text-align: center;
+  position: relative;
 }
 
 .page-header-title {
