@@ -24,7 +24,7 @@ get_header();
     <div class="container" style="text-align: center;">
         <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-hero.jpg'); ?>"
              alt="404 Fund Scholarship Recipients"
-             style="width: 100%; max-width: 20rem; height: auto; display: inline-block;" />
+             style="width: 100%; max-width: 50rem; height: auto; display: inline-block; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);" />
     </div>
 </section>
 <?php endif; ?>
