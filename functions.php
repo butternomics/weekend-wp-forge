@@ -606,3 +606,16 @@ function four04_day_create_parade_faq_page() {
     }
 }
 add_action('after_setup_theme', 'four04_day_create_parade_faq_page');
+
+/**
+ * Add target="_blank" to sponsor menu items
+ */
+function four04_day_sponsor_link_attributes($atts, $item, $args) {
+    // Check if this menu item has the 'menu-item-sponsor' class
+    if (in_array('menu-item-sponsor', $item->classes)) {
+        $atts['target'] = '_blank';
+        $atts['rel'] = 'noopener noreferrer';
+    }
+    return $atts;
+}
+add_filter('nav_menu_link_attributes', 'four04_day_sponsor_link_attributes', 10, 3);
