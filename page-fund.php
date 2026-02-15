@@ -18,6 +18,17 @@ get_header();
     </div>
 </div>
 
+<!-- Hero Image Section -->
+<?php if (file_exists(get_template_directory() . '/assets/images/fund-hero.jpg')) : ?>
+<section style="padding: 0;">
+    <div style="width: 100%; max-height: 600px; overflow: hidden;">
+        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-hero.jpg'); ?>"
+             alt="404 Fund Scholarship Recipients"
+             style="width: 100%; height: auto; object-fit: cover; display: block;" />
+    </div>
+</section>
+<?php endif; ?>
+
 <!-- Mission Section -->
 <section class="section">
     <div class="container" style="max-width: 80rem;">
@@ -120,28 +131,46 @@ get_header();
                     <?php endwhile; ?>
                 <?php endif; ?>
             <?php else : // Default programs ?>
-                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); padding: 2rem;">
-                    <span style="background-color: var(--color-secondary); color: var(--color-primary); padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 1rem;">
-                        <?php esc_html_e('Education', '404-day-weekend'); ?>
-                    </span>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">
-                        <?php esc_html_e('404 Day Scholarship', '404-day-weekend'); ?>
-                    </h3>
-                    <p style="color: var(--color-muted-foreground); line-height: 1.6;">
-                        Each year, thousands of students of color in Georgia leave college because of financial gaps as small as $1,500. The 404 Fund Scholarship was created to change that — helping juniors and seniors stay on track to graduate. In partnership with the AUC Consortium, we award scholarships to support the next generation of Atlanta's talent.
-                    </p>
+                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); overflow: hidden;">
+                    <?php if (file_exists(get_template_directory() . '/assets/images/fund-scholarship.jpg')) : ?>
+                        <div style="width: 100%; overflow: hidden; max-height: 400px;">
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-scholarship.jpg'); ?>"
+                                 alt="404 Fund Scholarship Recipients"
+                                 style="width: 100%; height: auto; object-fit: cover; display: block;" />
+                        </div>
+                    <?php endif; ?>
+                    <div style="padding: 2rem;">
+                        <span style="background-color: var(--color-secondary); color: var(--color-primary); padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 1rem;">
+                            <?php esc_html_e('Education', '404-day-weekend'); ?>
+                        </span>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">
+                            <?php esc_html_e('404 Day Scholarship', '404-day-weekend'); ?>
+                        </h3>
+                        <p style="color: var(--color-muted-foreground); line-height: 1.6;">
+                            Each year, thousands of students of color in Georgia leave college because of financial gaps as small as $1,500. The 404 Fund Scholarship was created to change that — helping juniors and seniors stay on track to graduate. In partnership with the AUC Consortium, we award scholarships to support the next generation of Atlanta's talent.
+                        </p>
+                    </div>
                 </div>
 
-                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); padding: 2rem;">
-                    <span style="background-color: var(--color-secondary); color: var(--color-primary); padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 1rem;">
-                        <?php esc_html_e('Small Business', '404-day-weekend'); ?>
-                    </span>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">
-                        <?php esc_html_e('Maynard Jackson Small Business Grant', '404-day-weekend'); ?>
-                    </h3>
-                    <p style="color: var(--color-muted-foreground); line-height: 1.6;">
-                        Small businesses power Georgia's economy, and Atlanta is the hub. The Maynard Jackson Small Business Grant honors that legacy, providing critical support to help local businesses overcome challenges and grow — continuing Maynard Jackson's vision for a thriving, inclusive entrepreneurial ecosystem in Atlanta.
-                    </p>
+                <div style="background-color: var(--color-card); border: 1px solid var(--color-border); overflow: hidden;">
+                    <?php if (file_exists(get_template_directory() . '/assets/images/fund-grant.jpg')) : ?>
+                        <div style="width: 100%; overflow: hidden; max-height: 400px;">
+                            <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-grant.jpg'); ?>"
+                                 alt="Maynard Jackson Small Business Grant Recipient - The Grocery Spot"
+                                 style="width: 100%; height: auto; object-fit: cover; display: block;" />
+                        </div>
+                    <?php endif; ?>
+                    <div style="padding: 2rem;">
+                        <span style="background-color: var(--color-secondary); color: var(--color-primary); padding: 0.25rem 0.75rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; display: inline-block; margin-bottom: 1rem;">
+                            <?php esc_html_e('Small Business', '404-day-weekend'); ?>
+                        </span>
+                        <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">
+                            <?php esc_html_e('Maynard Jackson Small Business Grant', '404-day-weekend'); ?>
+                        </h3>
+                        <p style="color: var(--color-muted-foreground); line-height: 1.6;">
+                            Small businesses power Georgia's economy, and Atlanta is the hub. The Maynard Jackson Small Business Grant honors that legacy, providing critical support to help local businesses overcome challenges and grow — continuing Maynard Jackson's vision for a thriving, inclusive entrepreneurial ecosystem in Atlanta.
+                        </p>
+                    </div>
                 </div>
             <?php endif; ?>
         </div>
