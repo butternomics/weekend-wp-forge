@@ -801,10 +801,26 @@ p {
    Page Header
    =================================== */
 .page-header {
-  background: linear-gradient(rgba(247, 244, 237, 0.85), rgba(247, 244, 237, 0.85)), url('assets/images/hero-bg.jpg') center/cover no-repeat;
+  position: relative;
   padding: 4rem 1rem;
   text-align: center;
+  background-image: url('assets/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(27, 59, 54, 0.4), rgba(240, 242, 241, 0.6), rgba(240, 242, 241, 0.8));
+  z-index: 0;
+}
+
+.page-header .container {
   position: relative;
+  z-index: 1;
 }
 
 .page-header-title {

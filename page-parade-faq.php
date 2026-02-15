@@ -248,25 +248,4 @@ get_header();
 </style>
 
 <?php
-/**
- * Helper function to render FAQ items
- */
-function four04_day_render_faq_item($faq) {
-    ob_start();
-    ?>
-    <div style="border-bottom: 1px solid var(--color-border); padding: 1.5rem 0;">
-        <details style="cursor: pointer;">
-            <summary style="font-size: 1.25rem; font-weight: 700; color: var(--color-primary); text-transform: uppercase; list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-                <?php echo esc_html($faq['question']); ?>
-                <span style="font-size: 1.5rem; transition: transform 0.2s;">+</span>
-            </summary>
-            <div style="margin-top: 1rem; font-size: 1.125rem; color: var(--color-muted-foreground); line-height: 1.6;">
-                <?php echo esc_html($faq['answer']); ?>
-            </div>
-        </details>
-    </div>
-    <?php
-    return ob_get_clean();
-}
-
 get_footer();
