@@ -20,11 +20,11 @@ get_header();
 
 <!-- Hero Image Section -->
 <?php if (file_exists(get_template_directory() . '/assets/images/fund-hero.jpg')) : ?>
-<section class="section">
-    <div class="container" style="text-align: center;">
+<section style="padding: 0 0 2rem 0;">
+    <div class="container" style="max-width: 80rem;">
         <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/fund-hero.jpg'); ?>"
              alt="404 Fund Scholarship Recipients"
-             style="width: 100%; max-width: 50rem; height: auto; display: inline-block; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);" />
+             style="width: 100%; height: auto; display: block; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);" />
     </div>
 </section>
 <?php endif; ?>
