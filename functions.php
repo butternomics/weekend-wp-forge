@@ -171,6 +171,51 @@ function four04_day_register_partner_event_post_type() {
 add_action('init', 'four04_day_register_partner_event_post_type');
 
 /**
+ * Register Custom Post Type: Sponsors
+ */
+function four04_day_register_sponsor_post_type() {
+    $labels = array(
+        'name'                  => _x('Sponsors', 'Post type general name', '404-day-weekend'),
+        'singular_name'         => _x('Sponsor', 'Post type singular name', '404-day-weekend'),
+        'menu_name'             => _x('Sponsors', 'Admin Menu text', '404-day-weekend'),
+        'name_admin_bar'        => _x('Sponsor', 'Add New on Toolbar', '404-day-weekend'),
+        'add_new'               => __('Add New', '404-day-weekend'),
+        'add_new_item'          => __('Add New Sponsor', '404-day-weekend'),
+        'new_item'              => __('New Sponsor', '404-day-weekend'),
+        'edit_item'             => __('Edit Sponsor', '404-day-weekend'),
+        'view_item'             => __('View Sponsor', '404-day-weekend'),
+        'all_items'             => __('All Sponsors', '404-day-weekend'),
+        'search_items'          => __('Search Sponsors', '404-day-weekend'),
+        'not_found'             => __('No sponsors found.', '404-day-weekend'),
+        'not_found_in_trash'    => __('No sponsors found in Trash.', '404-day-weekend'),
+        'featured_image'        => _x('Sponsor Logo', 'Overrides the "Featured Image" phrase', '404-day-weekend'),
+        'set_featured_image'    => _x('Set sponsor logo', 'Overrides the "Set featured image" phrase', '404-day-weekend'),
+        'remove_featured_image' => _x('Remove sponsor logo', 'Overrides the "Remove featured image" phrase', '404-day-weekend'),
+        'use_featured_image'    => _x('Use as sponsor logo', 'Overrides the "Use as featured image" phrase', '404-day-weekend'),
+    );
+
+    $args = array(
+        'labels'             => $labels,
+        'public'             => true,
+        'publicly_queryable' => false,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'query_var'          => true,
+        'rewrite'            => array('slug' => 'sponsor'),
+        'capability_type'    => 'post',
+        'has_archive'        => false,
+        'hierarchical'       => false,
+        'menu_position'      => 7,
+        'menu_icon'          => 'dashicons-awards',
+        'supports'           => array('title', 'thumbnail', 'page-attributes'),
+        'show_in_rest'       => true,
+    );
+
+    register_post_type('sponsor', $args);
+}
+add_action('init', 'four04_day_register_sponsor_post_type');
+
+/**
  * Add Meta Boxes for Events
  */
 function four04_day_add_event_meta_boxes() {
@@ -408,6 +453,81 @@ function four04_day_save_partner_event_details($post_id) {
     }
 }
 add_action('save_post_partner_event', 'four04_day_save_partner_event_details');
+
+/**
+ * Add Meta Boxes for Sponsors
+ */
+function four04_day_add_sponsor_meta_boxes() {
+    add_meta_box(
+        'sponsor_details',
+        __('Sponsor Details', '404-day-weekend'),
+        'four04_day_sponsor_details_callback',
+        'sponsor',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'four04_day_add_sponsor_meta_boxes');
+
+/**
+ * Sponsor Details Meta Box Callback
+ */
+function four04_day_sponsor_details_callback($post) {
+    wp_nonce_field('four04_day_save_sponsor_details', 'four04_day_sponsor_details_nonce');
+
+    $sponsor_description = get_post_meta($post->ID, '_sponsor_description', true);
+
+    ?>
+    <div style="padding: 10px 0;">
+        <p style="margin-bottom: 20px; padding: 10px; background: #f0f8ff; border-left: 4px solid #0073aa;">
+            <strong>Instructions:</strong><br>
+            1. Upload the sponsor logo using the "Sponsor Logo" section (Featured Image) below<br>
+            2. Enter the sponsor name in the "Title" field above<br>
+            3. Enter a short description below<br>
+            4. Use the "Order" field in the right sidebar to control the display order (lower numbers appear first)
+        </p>
+
+        <p>
+            <label for="sponsor_description" style="display: block; margin-bottom: 5px; font-weight: 600;">
+                <?php _e('Sponsor Description', '404-day-weekend'); ?>
+            </label>
+            <textarea id="sponsor_description" name="sponsor_description" rows="3"
+                      style="width: 100%; padding: 8px;"
+                      placeholder="Brief description of the sponsor's contribution or partnership (1-2 sentences)"><?php echo esc_textarea($sponsor_description); ?></textarea>
+            <span style="display: block; margin-top: 5px; color: #666; font-size: 13px;">
+                Example: "Monday Night Brewing's specialty-crafted 404 Atlanta Lager dedicates 4.04% of net proceeds to The 404 Fund."
+            </span>
+        </p>
+    </div>
+    <?php
+}
+
+/**
+ * Save Sponsor Meta Box Data
+ */
+function four04_day_save_sponsor_details($post_id) {
+    // Check nonce
+    if (!isset($_POST['four04_day_sponsor_details_nonce']) ||
+        !wp_verify_nonce($_POST['four04_day_sponsor_details_nonce'], 'four04_day_save_sponsor_details')) {
+        return;
+    }
+
+    // Check autosave
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // Check permissions
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // Save sponsor description
+    if (isset($_POST['sponsor_description'])) {
+        update_post_meta($post_id, '_sponsor_description', sanitize_textarea_field($_POST['sponsor_description']));
+    }
+}
+add_action('save_post_sponsor', 'four04_day_save_sponsor_details');
 
 /**
  * Get all events ordered by custom order field
