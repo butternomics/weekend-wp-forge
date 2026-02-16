@@ -9,8 +9,8 @@ echo "🔄 Starting backup from live server..."
 echo ""
 
 # Configuration
-SERVER="user@butteratl.com"
-REMOTE_PATH="~/public_html/beta/wp-content/themes/404-day-weekend"
+SERVER="user@404weekend.com"
+REMOTE_PATH="~/public_html/wp-content/themes/404-day-weekend"
 LOCAL_PATH="/home/user/weekend-wp-forge"
 
 # Colors for output
